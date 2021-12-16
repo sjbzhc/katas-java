@@ -38,6 +38,7 @@ public class BacktrackingWithTrie {
         TrieNode currNode = parent.children.get(letter);
 
         // If the word is null, it means we are in an intermediate node of the string, not at the end node, so its just a substring, not an actual word
+        // Set to null to avoid repeating
         if (currNode.word != null) {
             result.add(currNode.word);
             currNode.word = null;
@@ -46,16 +47,14 @@ public class BacktrackingWithTrie {
         // mark the current letter before the EXPLORATION
         board[row][col] = '#';
 
-        // explore neighbor cells in around-clock directions: up, right, down, left
         int[] rowOffset = {-1, 0, 1, 0};
         int[] colOffset = {0, 1, 0, -1};
         for (int i = 0; i < 4; ++i) {
             int newRow = row + rowOffset[i];
             int newCol = col + colOffset[i];
-            if (newRow < 0 || newRow >= board.length || newCol < 0
-                    || newCol >= board[0].length) {
-                continue;
-            }
+
+            if (newRow < 0 || newRow >= board.length || newCol < 0 || newCol >= board[0].length) continue;
+
             if (currNode.children.containsKey(board[newRow][newCol])) {
                 backtrack(newRow, newCol, currNode);
             }

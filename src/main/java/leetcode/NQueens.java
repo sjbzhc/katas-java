@@ -12,7 +12,7 @@ import java.util.HashSet;
 *
 * If we encounter a valid option, we:
 *   update the state by adding constrains (cols, diags and antidiags).
-*   recursively call that option, which will generate all possible paths for that.
+*   recursively call that option, which will generate all possible paths for it.
 *   after calling backtrack, we must go back to the previous state (this is the actual backtracking), by removing the
 *   cols, diags and antidiags we just added. This leaves a clean state for the next round of the loop.
 *

@@ -22,12 +22,12 @@ public class SudokuSolver {
     boolean sudokuSolved = false;
 
     public boolean couldPlace(int candidate, int row, int col) {
-        int boxIndex = (row / n) * n + (col / n);
+        int boxIndex = getBoxIndex(row, col);
         return rows[row][candidate] + columns[col][candidate] + boxes[boxIndex][candidate] == 0;
     }
 
     public void placeNumber(int number, int row, int col) {
-        int boxIndex = (row / n) * n + (col / n);
+        int boxIndex = getBoxIndex(row, col);
 
         rows[row][number]++;
         columns[col][number]++;
@@ -36,7 +36,7 @@ public class SudokuSolver {
     }
 
     public void removeNumber(int number, int row, int col) {
-        int boxIndex = (row / n) * n + (col / n);
+        int boxIndex = getBoxIndex(row, col);
 
         rows[row][number]--;
         columns[col][number]--;
@@ -56,6 +56,10 @@ public class SudokuSolver {
                 backtrack(row, col + 1);
             }
         }
+    }
+
+    private int getBoxIndex(int row, int col) {
+        return (row / n) * n + (col / n);
     }
 
     public void backtrack(int row, int col) {

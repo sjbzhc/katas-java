@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class RobotRoomCleaner {
     private static final int[][] directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
     public void cleanRoom(Robot robot) {
         backtrack(robot, 0, 0, 0, new HashSet<>());
     }
