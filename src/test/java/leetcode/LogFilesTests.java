@@ -1,6 +1,5 @@
 package leetcode;
 
-import leetcode.LogFiles;
 import org.junit.Test;
 import org.assertj.core.api.Assertions;
 
