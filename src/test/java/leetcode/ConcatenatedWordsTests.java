@@ -15,6 +15,14 @@ public class ConcatenatedWordsTests {
     }
 
     @Test
+    public void concatenated_words_2_1() {
+        ConcatenatedWords2 cw = new ConcatenatedWords2();
+        String[] words = {"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"};
+        List<String> expected = List.of("dogcatsdog", "catsdogcats", "ratcatdogcat");
+        Assertions.assertThat(cw.findAllConcatenatedWordsInADict(words)).isEqualTo(expected);
+    }
+
+    @Test
     public void concatenated_words_2() {
         ConcatenatedWords cw = new ConcatenatedWords();
         String[] words = {"cat","dog", "catdog"};

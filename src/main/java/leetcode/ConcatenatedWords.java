@@ -13,13 +13,13 @@ import java.util.*;
 * If a portion of the word is encountered, we set the end of the substring in the word to true. In this case, we find
 * ab, so we set:
 * characterChecks = [1,0,1,0]
-* The we encounter c, so we set:
+* Then we encounter c, so we set:
 * characterChecks = [1,0,1,1]
 *
-* We speed up the process of going through the different substrings by breaking in the case that charactersCheck[j] is
-* false. This was, we move the i counter quicker (as we don't have to wait for j to increment all the way up to i).
+* We speed up the process of going through the different substrings by breaking in the case that charactersCheck[end] is
+* false. This was, we move the start counter quicker (as we don't have to wait for start to increment all the way up to end).
 *
-* We return the value in the last position of the array
+* We return the value in the last position of the array.
 * */
 
 public class ConcatenatedWords {
@@ -42,11 +42,11 @@ public class ConcatenatedWords {
         if (subWords.isEmpty()) return false;
         boolean[] characterChecks = new boolean[word.length() + 1];
         characterChecks[0] = true;
-        for (int right = 1; right <= word.length(); right++) {
-            for (int left = 0; left < right; left++) {
-                if (!characterChecks[left]) continue;
-                if (subWords.contains(word.substring(left, right))) {
-                    characterChecks[right] = true;
+        for (int end = 1; end <= word.length(); end++) {
+            for (int start = 0; start < end; start++) {
+                if (!characterChecks[start]) continue;
+                if (subWords.contains(word.substring(start, end))) {
+                    characterChecks[end] = true;
                     break;
                 }
             }

@@ -13,11 +13,19 @@ public class FileSystemTests {
 
         fs.mkdir("/a/b/c");
 
-        Assertions.assertThat(fs.ls("/")).isEqualTo(List.of("a"));
+//        Assertions.assertThat(fs.ls("/")).isEqualTo(List.of("a"));
 
         fs.addContentToFile("/a/b/c/d", "hello");
 
-        Assertions.assertThat(fs.readContentFromFile("/a/b/c/d")).isEqualTo("hello");
+//        Assertions.assertThat(fs.readContentFromFile("/a/b/c/d")).isEqualTo("hello");
+
+//        Assertions.assertThat(fs.ls("/a/b/c")).isEqualTo(List.of("d"));
+
+        fs.mkdir("/a/b/c/e");
+
+        Assertions.assertThat(fs.ls("/a/b/c")).isEqualTo(List.of("d", "e"));
+
+
 
     }
 }

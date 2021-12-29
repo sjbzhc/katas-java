@@ -29,6 +29,8 @@ public class WordBreak {
     }
 
     /*
+    * Time: O(n3), 2 nested loops and substring
+    * Space: O(n)
     * Keeps track of the previously calculated values in the memo array and returns the value if queried, instead of
     * calculating it again.
     *
@@ -55,6 +57,7 @@ public class WordBreak {
     }
 
     /*
+    * Time: O(n3), Space: O(n)
     * Focuses on the index of the string. We put the index of the end of the substring currently being examined
     * in the queue.
     *
@@ -90,6 +93,7 @@ public class WordBreak {
     }
 
     /*
+    * Time: O(n3), Space: O(n)
     * Works by saving the progress state in the dp array.
     *
     * Right iterates from 1 to s.length.
@@ -132,11 +136,11 @@ public class WordBreak {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
 
-        for (int right = 1; right <= s.length(); right++) {
-            for (int left = 0; left<right; left++) {
-                if (!dp[left]) continue;
-                if (dp[left] && wordDictSet.contains(s.substring(left, right))) {
-                    dp[right] = true;
+        for (int end = 1; end <= s.length(); end++) {
+            for (int start = 0; start<end; start++) {
+                if (!dp[start]) continue;
+                if (dp[start] && wordDictSet.contains(s.substring(start, end))) {
+                    dp[end] = true;
                     break;
                 }
             }

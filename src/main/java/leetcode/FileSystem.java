@@ -1,10 +1,6 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class FileSystem {
 
@@ -60,9 +56,22 @@ public class FileSystem {
     }
 
     public List<String> ls(String dir) {
-        if (dir.equals("/")) {
-            return new ArrayList<>(root.files.keySet());
+        File f = root;
+        List<String> files = new ArrayList<>();
+        if (!dir.equals("/")) {
+            String[] dirs = dir.split("/");
+
+            for (int i=1; i< dirs.length; i++) {
+                f = f.files.get(dirs[i]);
+            }
+
+            if (f.isFile) {
+                files.add(dirs[dirs.length - 1]);
+                return files;
+            }
         }
-        return null;
+        List<String> resFiles = new ArrayList<>(f.files.keySet());
+        Collections.sort(resFiles);
+        return resFiles;
     }
 }
