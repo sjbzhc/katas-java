@@ -1,6 +1,13 @@
 package leetcode;
 
 /*
+* Brute force:
+* Time: O(n2)
+* Space: O(1)
+*
+* Dynamic Programming:
+* Time: O(n)
+* Space: O(n)
 * For each entry, we need to find the max to its left and right.
 * In case of brute force, we search for both values every time we go to a new entry.
 * Then we just take the min of both max values and subtract from it the height of the current value.

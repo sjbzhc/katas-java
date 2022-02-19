@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /*
+* Time: O(m*n)
+* Space: O(m*n)
 * The trick is to start several BFS at the same time and to start from the gates.
 *
 * Starting several BFS at the same time means just adding all gates to the queue before starting the loop.

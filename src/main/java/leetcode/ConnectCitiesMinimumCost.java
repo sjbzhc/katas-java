@@ -3,8 +3,13 @@ package leetcode;
 import java.util.Arrays;
 
 /*
+* Time: O(m log n)
+* Space: O(n)
 * The trick lies in sorting the array. This way, any new node we encounter, we can add it to the disjoint set without
 * having to check if that would make the graph more expensive, as we know it's the cheapest option.
+*
+* A new pair of nodes, with nodes already connected to the graph, will be skipped, as it does not add any value to the
+* graph.
 *
 * The weights in the disjoint set are used to determine how many components are connected with the current node's parent.
 * We want to attach to the one with the highest weight, as it means we increase the graph's size.

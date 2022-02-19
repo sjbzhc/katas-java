@@ -1,5 +1,9 @@
 package leetcode;
 
+/*
+* Space: O(n * k)
+* Time: O(n)
+* */
 public class RangeAddition {
     public int[] getModifiedArray(int length, int[][] updates) {
         int[] res = new int[length];

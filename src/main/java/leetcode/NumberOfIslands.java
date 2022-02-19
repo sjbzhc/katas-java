@@ -3,6 +3,11 @@ package leetcode;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/*
+* Time: O(MxN)
+* Space: O(MxN)
+* */
+
 public class NumberOfIslands {
 
     public int numIslands(char[][] grid) {

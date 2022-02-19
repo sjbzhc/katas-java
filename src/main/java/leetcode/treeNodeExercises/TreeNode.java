@@ -1,4 +1,4 @@
-package leetcode.validateBinarySearchTree;
+package leetcode.treeNodeExercises;
 
 public class TreeNode {
     int val;

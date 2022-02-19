@@ -2,6 +2,11 @@ package leetcode;
 
 import java.util.*;
 
+/*
+* Time: O(n^2)
+* Space: O(n)
+* */
+
 public class NumberOfProvinces {
     int WHITE = 0;
     int BLACK = 1;

@@ -1,4 +1,9 @@
-package leetcode.validateBinarySearchTree;
+package leetcode.treeNodeExercises;
+
+/*
+* Time: O(n)
+* Space: O(n)
+* */
 
 public class IsSymmetric {
     public boolean isSymmetric(TreeNode root) {

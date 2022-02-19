@@ -1,7 +1,7 @@
 package leetcode;
 
-import leetcode.validateBinarySearchTree.TreeNode;
-import leetcode.validateBinarySearchTree.ValidateBinarySearchTree;
+import leetcode.treeNodeExercises.TreeNode;
+import leetcode.treeNodeExercises.ValidateBinarySearchTree;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 

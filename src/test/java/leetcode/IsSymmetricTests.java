@@ -1,7 +1,7 @@
 package leetcode;
 
-import leetcode.validateBinarySearchTree.IsSymmetric;
-import leetcode.validateBinarySearchTree.TreeNode;
+import leetcode.treeNodeExercises.IsSymmetric;
+import leetcode.treeNodeExercises.TreeNode;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 

@@ -3,6 +3,8 @@ package leetcode;
 import java.util.*;
 
 /*
+* Time: O(m * n)
+* Space: O(m * n)
 * First convert the board to a map, linking the number in the board game (e.g. 31 instead of (0,5)) with the value of
 * the cell (-1 if empty, next cell's number if ladder or snake).
 *

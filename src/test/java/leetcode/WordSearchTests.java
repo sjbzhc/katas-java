@@ -25,4 +25,20 @@ public class WordSearchTests {
         WordSearch2 wordSearch = new WordSearch2();
         Assertions.assertThat(wordSearch.exist(board, "ABCCED")).isTrue();
     }
+
+    @Test
+    public void word_search_3() {
+        char[] b1 = {'A', 'A'};
+        char[][] board = {b1};
+        WordSearch wordSearch = new WordSearch();
+        Assertions.assertThat(wordSearch.exist(board, "AA")).isTrue();
+    }
+
+    @Test
+    public void word_search_4() {
+        char[] b1 = {'A', 'A'};
+        char[][] board = {b1};
+        WordSearch wordSearch = new WordSearch();
+        Assertions.assertThat(wordSearch.exist(board, "AAAA")).isFalse();
+    }
 }

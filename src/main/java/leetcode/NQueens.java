@@ -3,6 +3,8 @@ package leetcode;
 import java.util.HashSet;
 
 /*
+* Time: O(n!)
+* Space: O(n)
 * We need a base case. In this case, we return 1 because it means we reached the end of the rows, so we must have
 * found one possible placement for all queens (we only reach a valid option, as otherwise we would run into the
 * continue within the loop).

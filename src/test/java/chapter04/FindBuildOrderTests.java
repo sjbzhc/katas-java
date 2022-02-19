@@ -16,15 +16,7 @@ public class FindBuildOrderTests {
         String[] d4 = {"f", "a"};
         String[] d5 = {"d", "c"};
         String[][] dependencies = {d1, d2, d3, d4, d5};
-        Stack stack = new Stack();
-        stack.push("f");
-        stack.push("e");
-        stack.push("a");
-        stack.push("b");
-        stack.push("d");
-        stack.push("c");
-        ProjectGraph projectGraph = fb.buildGraph(projects, dependencies);
-        System.out.println(projectGraph);
-//        Assertions.assertThat(fb.findBuildOrder(projects, dependencies)).isEqualTo(stack);
+        String[] expected = {"f", "e", "a", "b", "d", "c"};
+        Assertions.assertThat(fb.findBuildOrder(projects, dependencies)).isEqualTo(expected);
     }
 }

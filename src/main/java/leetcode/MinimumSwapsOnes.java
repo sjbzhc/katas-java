@@ -2,6 +2,11 @@ package leetcode;
 
 import java.util.Arrays;
 
+/*
+* Time: O(n)
+* Space: O(1)
+* */
+
 public class MinimumSwapsOnes {
     public int minSwaps(int[] data) {
         int numOnes = Arrays.stream(data).sum();

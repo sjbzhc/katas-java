@@ -4,39 +4,41 @@ import java.util.*;
 
 public class WordLadder2 {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+
         Map<String, List<String>> wildcardToWords = new HashMap<>();
         int count = 1;
 
-        for (String word: wordList) {
-            for (int i=0; i< word.length(); i++) {
-                String wildcardString = word.substring(0, i) + "*" + word.substring(i + 1);
-                List<String> wordsOfWildcard = wildcardToWords.getOrDefault(wildcardString, new ArrayList<>());
-                if (!wordsOfWildcard.contains(word)) {
-                    wordsOfWildcard.add(word);
-                }
-                wildcardToWords.put(wildcardString, wordsOfWildcard);
+        for (String word : wordList) {
+            for (int i=0; i<word.length();i++) {
+                String wildCard = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
+                List<String> words = wildcardToWords.getOrDefault(wildCard, new ArrayList<>());
+                words.add(word);
+                wildcardToWords.put(wildCard, words);
             }
         }
 
         Queue<String> queue = new LinkedList<>();
-        queue.add(beginWord);
         Map<String, Boolean> visited = new HashMap<>();
         visited.put(beginWord, true);
+
+        queue.add(beginWord);
 
         while (!queue.isEmpty()) {
             int size = queue.size();
             while (size > 0) {
-                String word = queue.poll();
-                for (int i=0;i<word.length();i++) {
-                    String wildcardString = word.substring(0, i) + "*" + word.substring(i + 1);
-                    for (String w : wildcardToWords.getOrDefault(wildcardString, new ArrayList<>())) {
-                        if (w.equals(endWord)) {
+                String currentWord = queue.poll();
+                for (int i=0; i<currentWord.length();i++) {
+                    String wildCard = currentWord.substring(0, i) + "*" + currentWord.substring(i + 1, currentWord.length());
+                    for (String word : wildcardToWords.getOrDefault(wildCard, new ArrayList<>())) {
+                        if (word.equals(endWord)) {
                             return count + 1;
                         }
-                        if (!visited.containsKey(w)) {
-                            queue.add(w);
-                            visited.put(w, true);
+
+                        if (!visited.getOrDefault(word, false)) {
+                            visited.put(word, true);
+                            queue.add(word);
                         }
+
                     }
                 }
                 size--;

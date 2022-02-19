@@ -1,5 +1,10 @@
 package chapter02;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
+
 public class Partition {
     public static LinkedListNode partition(LinkedListNode node, int i) {
         LinkedListNode beforeStart = null;
@@ -13,7 +18,7 @@ public class Partition {
             if (node.data < i) {
                 if (beforeStart == null) {
                     beforeStart = node;
-                    beforeEnd = beforeStart;
+                    beforeEnd = node;
                 } else {
                     beforeEnd.next = node;
                     beforeEnd = node;
@@ -21,7 +26,7 @@ public class Partition {
             } else {
                 if (afterStart == null) {
                     afterStart = node;
-                    afterEnd = afterStart;
+                    afterEnd = node;
                 } else {
                     afterEnd.next = node;
                     afterEnd = node;

@@ -7,6 +7,10 @@ import java.util.Comparator;
 public class LogFiles {
 
     /*
+    * Time: O(M * N log N): NlogN for Arrays.sort, M (max length of a log) for each invocation of the compareTo function.
+    * Space: O(M log N)
+    *
+    *
     * Create 2 arrays: 1 for chars, one for numbers
     * Chars: sort by contents, if contents the same, by ids
     * Numbers: don't sort

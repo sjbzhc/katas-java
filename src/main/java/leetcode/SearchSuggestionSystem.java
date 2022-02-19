@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+* Time: O(n log n)
+* Space: O(m * n)
+* */
+
 public class SearchSuggestionSystem {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
         StringBuilder sb = new StringBuilder();

@@ -1,7 +1,7 @@
 package leetcode;
 
-import leetcode.validateBinarySearchTree.BinaryTreeMaximumPathSum;
-import leetcode.validateBinarySearchTree.TreeNode;
+import leetcode.treeNodeExercises.BinaryTreeMaximumPathSum;
+import leetcode.treeNodeExercises.TreeNode;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 

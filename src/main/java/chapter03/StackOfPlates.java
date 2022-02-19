@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+/*
+* Time: O(1)
+* Space: O(n)
+* */
+
 public class StackOfPlates {
     int stackCapacity;
     ArrayList<Stack> stacks = new ArrayList<>();

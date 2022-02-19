@@ -27,4 +27,12 @@ public class TrappingRainWaterTests {
 
         Assertions.assertThat(tr.trapDynamicProgramming(heights)).isEqualTo(6);
     }
+
+    @Test
+    public void trapping_rainwater_2_2() {
+        TrappingRainWater2 tr = new TrappingRainWater2();
+        int[] heights = {0,1,0,2,1,0,1,3,2,1,2,1};
+
+        Assertions.assertThat(tr.bruteForce(heights)).isEqualTo(6);
+    }
 }

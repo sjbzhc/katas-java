@@ -1,4 +1,9 @@
-package leetcode.validateBinarySearchTree;
+package leetcode.treeNodeExercises;
+
+/*
+* Time: O(n)
+* Space: O(n)
+* */
 
 public class ValidateBinarySearchTree {
     public boolean isValidBST(TreeNode root) {

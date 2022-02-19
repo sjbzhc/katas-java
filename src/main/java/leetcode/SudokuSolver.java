@@ -1,6 +1,8 @@
 package leetcode;
 
 /*
+* Time: O(n!^n): n being 9
+* Space: O(n^2)
 * Each row/column is a vector, with the position in the vector mapping to the number in question.
 *
 * So if rows[1][2] == 1, it means that in the second row, we already have the number 3.

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /*
-* Use a trie to quickly navigate to the nodes. When a sentences is finished, we update each character of the sentence
+* Use a trie to quickly navigate to the nodes. When a sentence is finished, we update each character of the sentence
 * with the information of the final node, to have to frequency and whole sentence in each of the nodes hot-list (this
 * happens in the add function).
 *
@@ -93,6 +93,7 @@ public class AutocompleteSystem {
             cur = cur.children[c];
         }
 
+        // Could not match any sentence with the prefix
         if (cur == null) return res;
 
         for (TrieNode node : cur.hot) {

@@ -1,7 +1,9 @@
 package leetcode;
 
-import java.util.Arrays;
-
+/*
+* Time: O(n)
+* Space: O(n^2)
+* */
 public class TicTacToe {
     int size;
     char[][] board;

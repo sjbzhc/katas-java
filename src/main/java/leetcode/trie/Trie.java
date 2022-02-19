@@ -1,6 +1,8 @@
 package leetcode.trie;
 
 /*
+* Time: O(m)
+* Space: O(m)
 * In Tries, the node value is encoded in its position in the array.
 *
 * The root array (of TrieNode) starts with 26 empty slots:

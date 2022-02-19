@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
+* Time: O(V + E)
+* Space: O(V + E)
+*
 * We use the fact that dfs will go through all the child nodes of a node n, before continuing with n's siblings.
 *
 * So every time we start dfs with a new node n, we increase the counter.
@@ -11,7 +14,7 @@ import java.util.List;
 *
 * */
 
-public class CountComponents {
+public class ConnectedComponents {
 
     public int countComponents(int n, int[][] edges) {
         List<Integer>[] adjacencyLists = new ArrayList[n];

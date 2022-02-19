@@ -3,6 +3,11 @@ package leetcode;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/*
+* Time: O(m*n)
+* Space: O(n)
+* */
+
 public class ShortestPathToGetFood {
 
     public int getFood(char[][] grid) {

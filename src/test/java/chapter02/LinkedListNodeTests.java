@@ -34,6 +34,13 @@ public class LinkedListNodeTests {
     }
 
     @Test
+    public void remove_dups3() {
+        LinkedListNode list = LinkedListNode.fromList(List.of(1, 2, 3, 4, 1, 2, 3));
+        RemoveDups.removeDups3(list);
+        Assertions.assertEquals(list.toString(), "1234");
+    }
+
+    @Test
     public void partition() {
         LinkedListNode list = LinkedListNode.fromList(List.of(3,5,8,5,10,2,1));
         Assertions.assertEquals(Partition.partition(list, 5).toString(), "32158510");

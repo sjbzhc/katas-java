@@ -5,7 +5,7 @@ public class Successor {
         /*
         * If node has right child, take the leftmost child
         *
-        * Otherwise, while n is right child of n.parent, we set n = p.
+        * Otherwise, while n is right child of n.parent, we set n = parent.
         * We then return n.p
         *
         *      a

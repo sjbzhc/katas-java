@@ -4,6 +4,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/*
+* Time: O(n log k)
+* Space: O(n)
+* */
+
 public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists.length == 0) return new ListNode();

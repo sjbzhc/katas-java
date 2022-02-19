@@ -2,6 +2,11 @@ package chapter02;
 
 import java.util.Stack;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
+
 public class Palindrome {
     public static boolean palindrome(LinkedListNode node) {
         // create inversed LL

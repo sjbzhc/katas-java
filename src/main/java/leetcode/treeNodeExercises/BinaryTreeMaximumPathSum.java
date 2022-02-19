@@ -1,5 +1,9 @@
-package leetcode.validateBinarySearchTree;
+package leetcode.treeNodeExercises;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
 public class BinaryTreeMaximumPathSum {
     int maxSum = Integer.MIN_VALUE;
 

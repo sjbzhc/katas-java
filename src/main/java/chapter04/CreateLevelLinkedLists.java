@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
+
 public class CreateLevelLinkedLists {
     public List<LinkedList<Integer>> create(TreeNode2 node) {
         ArrayList<LinkedList<Integer>> lists = new ArrayList<>();

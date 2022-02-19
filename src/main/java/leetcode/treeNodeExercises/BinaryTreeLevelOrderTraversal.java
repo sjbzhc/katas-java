@@ -1,4 +1,4 @@
-package leetcode.validateBinarySearchTree;
+package leetcode.treeNodeExercises;
 
 import java.util.ArrayList;
 import java.util.List;

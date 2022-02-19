@@ -1,9 +1,7 @@
 package leetcode;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class ShortestPathToGetFood2 {
     int ROWS;
@@ -20,6 +18,7 @@ public class ShortestPathToGetFood2 {
             for (int c=0;c<COLS;c++) {
                 if (grid[r][c] == '*') {
                     queue.add(new int[] {r, c});
+                    visited[r][c] = 1;
                 }
             }
         }
@@ -33,12 +32,12 @@ public class ShortestPathToGetFood2 {
                 int[] rowOffsets = {-1,0,1,0};
                 int[] colOffsets = {0,-1,0,1};
 
+                if (grid[row][col] == '#') return res;
 
                 for (int d=0;d<4;d++) {
                     int newRow = row + rowOffsets[d];
                     int newCol = col + colOffsets[d];
 
-                    if (grid[row][col] == '#') return res;
 
                     if (newRow >= ROWS ||
                             newRow < 0 ||
@@ -60,6 +59,6 @@ public class ShortestPathToGetFood2 {
             res++;
         }
 
-        return res;
+        return -1;
     }
 }

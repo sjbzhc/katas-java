@@ -3,38 +3,37 @@ package chapter02;
 import java.util.Stack;
 
 public class Palindrome2 {
-    public static boolean palindrome(LinkedListNode list) {
-        LinkedListNode reversed = reverse(list);
-        return false;
+    public static boolean palindrome(LinkedListNode node) {
+        LinkedListNode reversed = reverse(node);
+        while (node != null) {
+            if (node.data != reversed.data) {
+                return false;
+            } else {
+                node = node.next;
+                reversed = reversed.next;
+            }
+        }
+        return true;
     }
 
     private static LinkedListNode reverse(LinkedListNode list) {
-        print(list);
-        Stack<Integer> stack = new Stack<>();
+        LinkedListNode tail = null;
+        LinkedListNode head = null;
 
         while (list != null) {
-            stack.add(list.data);
+            if (head == null) {
+                head = new LinkedListNode(list.data);
+                tail = head;
+            } else {
+                LinkedListNode newNode = new LinkedListNode(list.data);
+                newNode.next = tail;
+                tail = newNode;
+            }
             list = list.next;
         }
 
-        LinkedListNode head = null;
-        LinkedListNode tail = null;
+        return tail;
 
-        while (!stack.isEmpty()) {
-            LinkedListNode current = new LinkedListNode(stack.pop());
-            if (head == null) {
-                head = current;
-                tail = head;
-            } else {
-                tail.next = current;
-                tail = current;
-            }
-        }
-
-        print(head);
-
-
-        return head;
     }
 
     private static void print(LinkedListNode list) {

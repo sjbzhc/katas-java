@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /*
+* Time: O(V + E)
+* Space: O(V + E)
 * We use DFS, since we want to get to the bottom of the 'tree'. A node at the bottom of the 'tree' has no dependencies.
 *
 * Gray represents a node that is being currently inspected. If during this dfs recursion we encounter another gray node

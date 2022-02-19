@@ -2,6 +2,11 @@ package chapter04;
 
 public class MinTree {
 
+    /*
+    * Time: O(n)
+    * Space: O(n)
+    * */
+
     public TreeNode2 fromArray(int[] arr) {
         return create(arr, 0, arr.length - 1);
     }

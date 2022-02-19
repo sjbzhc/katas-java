@@ -2,6 +2,10 @@ package leetcode;
 
 import java.util.Arrays;
 
+/*
+* Time: O(n log n) for sorting. We iterate one more time, in worst case through whole array.
+* Space: O(1)
+* */
 public class TruckBoxes {
     public static int totalNumberOfBoxes(int[][] boxTypes, int truckSize) {
         int unitCount = 0;

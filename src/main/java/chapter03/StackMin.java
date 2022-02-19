@@ -2,6 +2,11 @@ package chapter03;
 
 import java.util.Stack;
 
+/*
+* Time: O(1)
+* Space: O(n)
+* */
+
 public class StackMin {
     private Stack<Integer> stack = new Stack<>();
     private Stack<Integer> min = new Stack<>();

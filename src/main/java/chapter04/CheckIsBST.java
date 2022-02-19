@@ -14,7 +14,7 @@ public class CheckIsBST {
         if ((min != null && node.data <= min) || (max != null && node.data > max)) return false;
 
         // if any of the children fails the check, return false
-        if (!(check(node.left, null, node.data) && check(node.right, node.data, null))) return false;
+        if (!(check(node.left, null, node.data) && !check(node.right, node.data, null))) return false;
 
         // only if we pass all tests return true
         return true;

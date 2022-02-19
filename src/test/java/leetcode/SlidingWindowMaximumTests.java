@@ -27,4 +27,12 @@ public class SlidingWindowMaximumTests {
         int[] expected = {3,3,5,5,6,7};
         Assertions.assertThat(sw.maxSlidingWindowPQ(nums, 3)).isEqualTo(expected);
     }
+
+    @Test
+    public void sliding_window_dp() {
+        SlidingWindowMaximum sw = new SlidingWindowMaximum();
+        int[] nums = {1,3,-1,-3,5,3,6,7};
+        int[] expected = {3,3,5,5,6,7};
+        Assertions.assertThat(sw.maxSlidingWindowDp(nums, 3)).isEqualTo(expected);
+    }
 }

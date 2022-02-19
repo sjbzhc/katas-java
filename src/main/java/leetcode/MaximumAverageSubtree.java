@@ -1,6 +1,8 @@
 package leetcode;
 
 /*
+* Time: O(n)
+* Space: O(n)
 * We do dfs with post order traversal, as we need the values of the children before we can compute the total value
 * at the node level.
 * */
@@ -15,8 +17,8 @@ public class MaximumAverageSubtree {
     private int[] dfs(TreeNode tree) {
         if (tree == null) return new int[]{0,0};
 
-        int left[] = dfs(tree.left);
-        int right[] = dfs(tree.right);
+        int[] left = dfs(tree.left);
+        int[] right = dfs(tree.right);
 
         int totalSum = left[0] + right[0] + tree.val;
         int totalCount = left[1] + right[1] + 1;

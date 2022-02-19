@@ -6,6 +6,8 @@ import java.util.Map;
 public class LRUCache {
 
     /*
+    * Time: O(1)
+    * Space: O(capacity), for hashmap and linkedlist
     * The HashMap and DLinkedList work independently of each other, although they hold kind of the same data.
     *
     * We use the has map to hold a pointer to the place where the data with a given key is stored. This reference
@@ -14,6 +16,18 @@ public class LRUCache {
     * For example, if we want to get the element with key 5, we first use the HashMap to get a pointer to the
     * memory location of where the data with key 5 is stored. With this reference we can then get node.value and
     * move it to the head of the DLinkNode
+    *
+    * Add a node to a DLinkNode:
+    * We only modify the pointers inside head and node, we don't reallocate the pointers towards head or tail.
+    * Think of the list as going head <=> tail, all nodes will be inserted before the head.
+    *
+    * In the first step, we focus on allocating the new node's pointers:
+    * node.prev = head
+    * node.next = head.next (we cannot link the node.next to tail, as there might be nodes between)
+    *
+    * Then we need to reallocate the connections between head and it's previous element, towards the new node:
+    * head.next.prev = node (head.next is head's previous element, so we change it's prev pointer towards the new node)
+    * head.next = node
     *
     * */
 
@@ -24,6 +38,11 @@ public class LRUCache {
         DLinkNode prev;
         DLinkNode next;
     }
+
+    private Map<Integer, DLinkNode> cache = new HashMap<>();
+    private int size;
+    private int capacity;
+    private DLinkNode head, tail;
 
     private void addNode(DLinkNode node) {
             node.prev = head;
@@ -51,11 +70,6 @@ public class LRUCache {
             removeNode(temp);
             return temp;
         }
-
-    private Map<Integer, DLinkNode> cache = new HashMap<>();
-    private int size;
-    private int capacity;
-    private DLinkNode head, tail;
 
     // head - nodes - tail
 

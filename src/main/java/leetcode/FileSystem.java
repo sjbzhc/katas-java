@@ -2,6 +2,16 @@ package leetcode;
 
 import java.util.*;
 
+/*
+* Time:
+* ls: O(m + n + k log k): m for length of word for splitting, n the number of splits in array, klogk for sorting the k files
+* mkdir: O(m + n)
+* addContentToFile: O(m + n)
+*
+* Space:
+* O(m + ck)
+* */
+
 public class FileSystem {
 
     class File {
@@ -70,8 +80,8 @@ public class FileSystem {
                 return files;
             }
         }
-        List<String> resFiles = new ArrayList<>(f.files.keySet());
-        Collections.sort(resFiles);
-        return resFiles;
+        files.addAll(f.files.keySet());
+        Collections.sort(files);
+        return files;
     }
 }

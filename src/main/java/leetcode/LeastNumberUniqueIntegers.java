@@ -5,6 +5,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+* Time: O(n log n)
+* Space: O(n)
+* Create a frequency list and sort ascending by frequency.
+* From that list, get the number of unique numbers
+* Iterate through list
+*   if we have enough k to remove the elements from one frequency list, remove them. Decrease k by their frequency and
+*   decrease count by 1.
+*   Otherwise, return the count, as we cannot further reduce.
+* */
+
 public class LeastNumberUniqueIntegers {
     public int findLeastNumOfUniqueInts(int[] arr, int k) {
         List<int[]> frequencyList = createFrequencyList(arr);

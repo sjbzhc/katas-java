@@ -40,6 +40,9 @@ public class MeetingRooms {
     }
 
     /*
+    * Time: O(n log n)
+    * Space: O(n)
+    *
     * The problem can be solved with a priority queue (as min-heap) and sorting.
     *
     * We first sort the intervals by their starting time.
@@ -47,7 +50,7 @@ public class MeetingRooms {
     * The min-heap keeps the smallest end-time so far seen at the top.
     *
     * If the starting time for our current meeting is greater then the element at the top of the heap, it means
-    * one meeting room is free. We can therefore remove this element from the head and update it with the new ending
+    * one meeting room is free. We can therefore remove this element from the heap and update it with the new ending
     * time.
     *
     * If the starting time for our current meeting is smaller than the element at the top of the heap, then we need

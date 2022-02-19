@@ -2,6 +2,11 @@ package leetcode;
 
 import java.util.*;
 
+/*
+* Time: O(n4)
+* Space: O(n log n)
+* */
+
 public class AnalyseUserWebsiteVisitPattern {
 
     class Visit {

@@ -2,9 +2,14 @@ package chapter04;
 
 import java.util.LinkedList;
 
+/*
+* Time: O(E + V)
+* Space: O(E + V)
+* */
+
 public class RouteBetweenNodes {
 
-    enum States {VISITED, NOT_VISITED }
+    enum States {VISITED, NOT_VISITED, VISITING }
 
     boolean search(Graph g, TreeNode start, TreeNode end) {
         if (start == end) return true;
@@ -23,18 +28,18 @@ public class RouteBetweenNodes {
         * */
 
         LinkedList<TreeNode> q = new LinkedList<>();
-        start.status = States.VISITED.toString();
-        q.add(start);
-        TreeNode u;
+        start.status = States.VISITING.toString();
+        q.offer(start);
         while (!q.isEmpty()) {
-            u = q.removeFirst();
+            TreeNode u = q.poll();
             if (u != null) {
                 for (TreeNode n : u.children) {
+                    if (n.status.equals(States.VISITING.toString())) continue;
                     if (n.status.equals(States.NOT_VISITED.toString())) {
                         if (n == end) {
                             return true;
                         } else {
-                            n.status = States.VISITED.toString();
+                            n.status = States.VISITING.toString();
                             q.add(n);
                         }
                     }

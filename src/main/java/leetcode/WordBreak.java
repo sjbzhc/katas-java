@@ -4,7 +4,8 @@ import java.util.*;
 
 public class WordBreak {
     /*
-    * O(2^n)
+    * Time: O(2^n)
+    * Space: O(n) depth of recursion
     * Recursion works by divide and conquer. It separates the problem in 2 substrings, with the right side possibly
     * being further segmented.
     *
@@ -139,7 +140,7 @@ public class WordBreak {
         for (int end = 1; end <= s.length(); end++) {
             for (int start = 0; start<end; start++) {
                 if (!dp[start]) continue;
-                if (dp[start] && wordDictSet.contains(s.substring(start, end))) {
+                if (wordDictSet.contains(s.substring(start, end))) {
                     dp[end] = true;
                     break;
                 }

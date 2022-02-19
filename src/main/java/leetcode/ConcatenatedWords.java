@@ -3,6 +3,9 @@ package leetcode;
 import java.util.*;
 
 /*
+* Time: O(n * L^3): L has 2 nested loops of length of longest word, + substring
+* Space: O(n + L)
+*
 * The main part is in canForm.
 *
 * A boolean array is created with the size of the word + 1. For example, for abc, with the first element as true:

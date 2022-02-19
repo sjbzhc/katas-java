@@ -1,6 +1,9 @@
 package leetcode;
 
 /*
+* Time: O(N)
+* Space: O(N)
+*
 * We separate for each element the left and right side.
 *
 * In the left side, we count the number of ones, since we want to have only 0s.

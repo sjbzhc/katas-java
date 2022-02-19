@@ -3,6 +3,9 @@ package leetcode;
 import java.util.*;
 
 /*
+* Time: O(n * m2). For each word (n) we create all substrings of m (a matrix, with * in the diagonal)
+* Space: O(n * m2). For each of the word, we will have the wildcard word with the same original word.
+*
 * We first build a dictionary to map all possible strings in the wordList that stem from a wildcard char:
 * *og -> {dog, cog}, d*g -> {dog}
 *
@@ -40,9 +43,9 @@ public class WordLadder {
             int size = q.size();
 
             while (size > 0) {
-                String word = q.remove();
+                String word = q.poll();
 
-                for (int i = 0; i < n; i++) {
+                for (int i = 0; i < word.length(); i++) {
                     String wildcardString = word.substring(0, i) + '*' + word.substring(i + 1, n);
 
                     for (String adjacentWord : wildcardStringToWords.getOrDefault(wildcardString, new ArrayList<>())) {

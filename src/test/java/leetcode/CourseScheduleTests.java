@@ -29,7 +29,7 @@ public class CourseScheduleTests {
         int[] pr4 = {3,2};
         int[][] prerequisites = {pr1, pr2, pr3, pr4};
 
-        int[] expected = {0,1,2,3};
+        int[] expected = {0,2,1,3};
         Assertions.assertThat(cs.findOrder(4, prerequisites)).isEqualTo(expected);
     }
 }

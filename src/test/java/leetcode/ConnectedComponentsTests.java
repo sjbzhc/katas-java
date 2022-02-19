@@ -3,10 +3,10 @@ package leetcode;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 
-public class CountComponentsTests {
+public class ConnectedComponentsTests {
     @Test
     public void count_components() {
-        CountComponents cc = new CountComponents();
+        ConnectedComponents cc = new ConnectedComponents();
 
         int[] e1 = {1,2};
         int[] e2 = {3,4};
