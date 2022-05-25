@@ -1,5 +1,10 @@
 package leetcode.addTwoNumbers;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
+
 public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // validate

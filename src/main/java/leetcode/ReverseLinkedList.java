@@ -2,6 +2,11 @@ package leetcode;
 
 import leetcode.addTwoNumbers.ListNode;
 
+/*
+* Time: O(n)
+* Space: O(1)
+* */
+
 public class ReverseLinkedList {
     public ListNode reverse(ListNode node) {
         ListNode prev = null;

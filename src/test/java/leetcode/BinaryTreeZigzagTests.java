@@ -40,7 +40,7 @@ public class BinaryTreeZigzagTests {
         tn3.left = tn9;
         tn3.right = tn20;
 
-        List<List<Integer>> expected = List.of(List.of(3), List.of(20, 9), List.of(15,7));
+        List<List<Integer>> expected = List.of(List.of(3), List.of(9, 20), List.of(15,7));
         Assertions.assertThat(bt.zigzagLevelOrderDq(tn3)).isEqualTo(expected);
     }
 }

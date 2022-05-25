@@ -44,8 +44,23 @@ public class BinaryTreeZigzag {
         queue.add(root);
 
         while (!queue.isEmpty()) {
-
+            int size = queue.size();
+            LinkedList<Integer> list = new LinkedList<>();
+            result.add(list);
+            boolean leftToRight = false;
+            while (size > 0) {
+                TreeNode current = queue.poll();
+                if (leftToRight) {
+                    list.addFirst(current.val);
+                } else {
+                    list.addLast(current.val);
+                }
+                if (current.left != null) queue.add(current.left);
+                if (current.right != null) queue.add(current.right);
+                size--;
+            }
+            leftToRight = !leftToRight;
         }
-        return null;
+        return result;
     }
 }

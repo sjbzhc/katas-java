@@ -20,7 +20,7 @@ public class LowestCommonAncestor {
     *     l = lca(null, 9, 20) => null
     *     r = lca(null, 9, 20) => null
     *     set.includes(root=9) => return 9
-    *   r = lca(20, 0, 20)
+    *   r = lca(20, 9, 20)
     *     l = lca(15, 9, 20)
     *         l = lca(null, 9, 20) => null
     *         r = lca(null, 9, 20) => null
@@ -30,13 +30,13 @@ public class LowestCommonAncestor {
     *         r = lca(null, 9, 20) => null
     *         !set.includes(root=7) => return null
     *     set.includes(20) => return 20
-    *   l != null => return root
+    *   l != null && r != null => return root
     *
     * We first create the whole recursion tree (up to the point where we need it) and then the results start to be
     * generated with the leaves of the tree for each node.
     *
     * We only reach left != null && right != null when all the children of left and right were evaluated and they were
-    * only returned as set.contains(root) for their onw call to lca (e.g. lca(20,0,20))
+    * only returned as set.contains(root) for their own call to lca (e.g. lca(20,0,20))
     *
     * This calls left and right for 9. Since 9 as a root is included in the set of (p,q), 9 is returned.
     * For 20, we calculate left and right for 15, which return null. This will lead to a result of null. The same for 7.

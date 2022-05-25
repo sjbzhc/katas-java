@@ -11,6 +11,11 @@ import leetcode.addTwoNumbers.ListNode;
 * That's why we can say head.next = reverseKGroup(p, k)
 * */
 
+/*
+* Time: O(n)
+* Space: O(n/k)
+* */
+
 public class ReverseKGroup {
     public ListNode reverseKGroup(ListNode head, int k) {
         int count = 0;

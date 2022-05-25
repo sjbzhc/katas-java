@@ -3,6 +3,11 @@ package leetcode;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/*
+* Time: O(m n log n)
+* Space: O(m log n)
+* */
+
 public class LogFiles2 {
     public static void arrange(String[] arr) {
         Comparator<String> comparator = new Comparator<String>() {

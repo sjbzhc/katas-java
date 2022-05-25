@@ -2,6 +2,15 @@ package leetcode;
 
 import java.util.Arrays;
 
+/*
+* Sort timestamps to ensure we find the earliest moment
+* Add rank to union find, and if they don't share a root, attach lower ranked to higher one. In case they are the same,
+* pick one (e.g. A) and pretend it's the higher one.
+* If n goes to 1 we return timestamp
+* We don't increase the rank of A if it's greater than B, since they won't be compared anymore in the future, but we could do it
+* and it would lead to the same results
+* */
+
 public class EarliestMomentFriends {
 
     private class UnionFind {
