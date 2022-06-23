@@ -11,6 +11,11 @@ import java.util.Arrays;
 * and it would lead to the same results
 * */
 
+/*
+* Time: O(n + mlog m + Ma(N)) n create union find, mlogm sorting, Ma(N) iterate through sorted logs (amortized)
+* Space: O(N + M) union find + space for sorting
+* */
+
 public class EarliestMomentFriends {
 
     private class UnionFind {
