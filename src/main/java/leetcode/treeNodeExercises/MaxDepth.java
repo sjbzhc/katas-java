@@ -15,26 +15,33 @@ public class MaxDepth {
     }
 
     public int maxDepthIterative(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<>();
-        LinkedList<Integer> depths = new LinkedList<>();
-        if (root == null) return 0;
 
-        stack.add(root);
-        depths.add(1);
+        class Pair {
+            TreeNode node;
+            int depth;
 
-        int depth = 0;
-        int current_depth = 0;
-        while(!stack.isEmpty()) {
-            root = stack.pop();
-            current_depth = depths.pollLast();
-            if (root != null) {
-                depth = Math.max(depth, current_depth);
-                stack.add(root.left);
-                stack.add(root.right);
-                depths.add(current_depth + 1);
-                depths.add(current_depth + 1);
+            public Pair(TreeNode node, int depth) {
+                this.node = node;
+                this.depth = depth;
             }
         }
-        return depth;
+
+        Stack<Pair> stack = new Stack<>();
+        if (root == null) return 0;
+
+        stack.add(new Pair(root, 1));
+
+        int res = 0;
+        while(!stack.isEmpty()) {
+            Pair current = stack.pop();
+            TreeNode node = current.node;
+            int depth = current.depth;
+            if (node != null) {
+                res = Math.max(depth, res);
+                stack.add(new Pair(node.left, depth + 1));
+                stack.add(new Pair(node.right, depth + 1));
+            }
+        }
+        return res;
     }
 }

@@ -83,6 +83,11 @@ public class LowestCommonAncestor {
      *
      * To set the answer, we need for 2 out of left, right and mid to return true.
     * */
+
+    /*
+    * Time: O(log n)
+    * Space: O(1)
+    * */
     TreeNode ans;
     public TreeNode lowestCommonAncestorCount(TreeNode root, TreeNode p, TreeNode q) {
         recurseTree(root, p, q);
@@ -99,5 +104,16 @@ public class LowestCommonAncestor {
         if (mid + right + left >= 2) ans = node;
 
         return (mid + left + right > 0);
+    }
+
+    private TreeNode lowestCommonAncestorGuaranteed(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode current = root;
+
+        while (current != null) {
+            if (p.val > current.val && q.val > current.val) current = current.right;
+            else if (p.val < current.val && q.val < current.val) current = current.left;
+            else return current;
+        }
+        return current;
     }
 }
