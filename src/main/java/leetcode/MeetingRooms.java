@@ -49,7 +49,7 @@ public class MeetingRooms {
     *
     * The min-heap keeps the smallest end-time so far seen at the top.
     *
-    * If the starting time for our current meeting is greater then the element at the top of the heap, it means
+    * If the starting time for our current meeting is greater than the element at the top of the heap, it means
     * one meeting room is free. We can therefore remove this element from the heap and update it with the new ending
     * time.
     *

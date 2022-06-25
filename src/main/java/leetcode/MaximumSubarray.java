@@ -1,5 +1,10 @@
 package leetcode;
 
+
+/*
+* Time: O(n)
+* Space: O(1)
+* */
 public class MaximumSubarray {
     public int maxSubArray(int[] nums) {
         int currentSubarray = nums[0];
@@ -11,6 +16,18 @@ public class MaximumSubarray {
             max = Math.max(currentSubarray, max);
         }
 
+        return max;
+    }
+
+    public int maxSubArrayGreedy(int[] nums) {
+        int currentSubarray = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int i=0;i<nums.length;i++) {
+            if (currentSubarray < 0) currentSubarray = 0;
+            currentSubarray += nums[i];
+            max = Math.max(max, currentSubarray);
+        }
         return max;
     }
 }
