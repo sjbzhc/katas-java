@@ -52,4 +52,50 @@ public class ConnectedComponents {
             adjacencyList[edge[1]].add(edge[0]);
         }
     }
+
+
+    private class UnionFind {
+        int[] root;
+        int[] rank;
+
+        public UnionFind(int size) {
+            root = new int[size];
+            rank = new int[size];
+            for (int i=0; i<size;i++) {
+                root[i] = i;
+                rank[i] = 0;
+            }
+        }
+
+        public int find(int n) {
+            while (n != root[n]) {
+                n = root[n];
+            }
+            return n;
+        }
+
+        public boolean union(int a, int b) {
+            int rootA = find(a);
+            int rootB = find(b);
+
+            if (rootA == rootB) return false;
+
+            if (rank[rootA] > rank[rootB]) root[rootB] = rootA;
+            else if (rank[rootB] > rank[rootA]) root[rootA] = rootB;
+            else {
+                root[rootB] = rootA;
+                rank[rootA]++;
+            }
+            return true;
+        }
+    }
+
+    public int countComponentsUF(int n, int[][] edges) {
+        UnionFind uf = new UnionFind(n);
+
+        for (int[] edge : edges) {
+            if (uf.union(edge[0], edge[1])) n--;
+        }
+        return n;
+    }
 }

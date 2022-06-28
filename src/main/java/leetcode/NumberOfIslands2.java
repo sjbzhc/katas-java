@@ -1,5 +1,10 @@
 package leetcode;
 
+
+/*
+* Time: O(m * n)
+* Space: O(m * n)
+* */
 public class NumberOfIslands2 {
     int ROWS;
     int COLS;

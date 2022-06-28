@@ -9,5 +9,6 @@ public class TopKFrequentElementsTests {
         TopKFrequentElements tk = new TopKFrequentElements();
         int[] nums = {1,1,1,2,2,3};
         Assertions.assertThat(tk.topKFrequent(nums, 2)).isEqualTo(new int[]{2,1});
+        Assertions.assertThat(tk.topKFrequentLinear(nums, 2)).isEqualTo(new int[]{2,1});
     }
 }

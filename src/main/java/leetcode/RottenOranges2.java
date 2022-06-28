@@ -21,6 +21,8 @@ public class RottenOranges2 {
             }
         }
 
+        queue.offer(new int[]{-1, -1});
+
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i=0; i<size;i++) {

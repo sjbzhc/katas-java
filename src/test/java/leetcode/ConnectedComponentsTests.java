@@ -16,6 +16,7 @@ public class ConnectedComponentsTests {
         int[][] edges = {e1,e2,e3,e4};
 
         Assertions.assertThat(cc.countComponents(6, edges)).isEqualTo(3);
+        Assertions.assertThat(cc.countComponentsUF(6, edges)).isEqualTo(3);
     }
 
     @Test

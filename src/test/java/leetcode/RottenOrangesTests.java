@@ -71,4 +71,14 @@ public class RottenOrangesTests {
 
         Assertions.assertThat(ro.orangesRotting(grid)).isEqualTo(2);
     }
+
+    @Test
+    public void rotten_oranges_2_0_() {
+        RottenOranges2 ro = new RottenOranges2();
+        int[] r1 = {0};
+
+        int[][] grid = {r1};
+
+        Assertions.assertThat(ro.orangesRotting(grid)).isEqualTo(0);
+    }
 }
