@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-* Time: O(4^n / sqrt(n))
-* Space: O(4^n / sqrt(n))
+* Time: O(2^n)
+* Space: O(2^n)
 * */
 
 public class GenerateParenthesis {

@@ -3,16 +3,20 @@ package leetcode;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
+
 public class LongestConsecutiveSequence {
     public int longestConsecutive(int[] nums) {
+        int max = 0;
 
         Set<Integer> set = new HashSet<>();
 
         for (int num : nums) {
             set.add(num);
         }
-
-        int max = 0;
 
         for (int num : nums) {
             int len = 0;
@@ -21,7 +25,6 @@ public class LongestConsecutiveSequence {
             }
             max = Math.max(max, len);
         }
-
         return max;
     }
 }

@@ -25,13 +25,15 @@ public class Codec {
     public List<String> decode(String s) {
         List<String> res = new ArrayList<>();
         int i=0;
+        int j=0;
 
         while(i < s.length()) {
-            int j=i;
             while (s.charAt(j) != '#') j += 1;
             int len = Integer.valueOf(s.substring(i, j));
             res.add(s.substring(j + 1, j + 1 + len));
+            // move i and j together to next position after last string
             i = j + 1 + len;
+            j = i;
         }
         return res;
     }

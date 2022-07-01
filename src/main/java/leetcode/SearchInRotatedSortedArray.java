@@ -1,33 +1,37 @@
 package leetcode;
 
+
+/*
+* Time: O(log n)
+* Space: O(1)
+* */
 public class SearchInRotatedSortedArray {
     int target;
     public int search(int[] nums, int target) {
-        this.target = target;
-        return bs(nums, 0, nums.length - 1);
-    }
+        int l = 0;
+        int r = nums.length;
 
-    private int bs(int[] nums, int low, int high) {
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            if (nums[mid] == target) return mid;
-            // the first half is not rotated
-            if (nums[mid] >= nums[low]) {
-                // target is within the not rotated half, constrain from low to mid - 1
-                if (target >= nums[low] && target < nums[mid]) {
-                    high = mid - 1;
-                // target is on the rotated half, constrain from mid + 1 to high
+        while (l <= r) {
+            int m = (l + r) / 2;
+            if (nums[m] == target) return m;
+
+            // left half is not interrupted
+            if (nums[l] <= nums[m]) {
+                // conditions to look on the right
+                if (target > nums[m] || target < nums[l]) {
+                    l = m + 1;
+                // we stay on the left
                 } else {
-                    low = mid + 1;
+                    r = m - 1;
                 }
-            // the second half is not rotated
+            // left half is interrupted <-> right half is not interrupted
             } else {
-                // target is in the not rotated half, constrain from mid + 1 to high
-                if (target <= nums[high] && target > nums[mid]) {
-                    low = mid + 1;
-                // target is in the rotate half, constrain from low to mid - 1
+                // conditions to look on the left
+                if (target > nums[r] || target < nums[m]) {
+                    r = m - 1;
+                // we stay on the right
                 } else {
-                    high = mid - 1;
+                    l = m + 1;
                 }
             }
         }

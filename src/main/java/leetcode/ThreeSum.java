@@ -7,45 +7,33 @@ import java.util.List;
 /*
 * Time: O(n2)
 * Space: O(n) (depends on sorting)
-*
-* Condition nums[i] <= 0 needed, as since we sorted, it is impossible to add to 0 with only positive integers
-*
-* In the else of twoSums:
-* We found a match and no repeats are allowed, so we move low and high at the same time. This might lead to
-* nums[low] == nums[low - 1], so we move low as long as necessary
 * */
 
 public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-        int n = nums.length;
-        for (int i=0; i<n && nums[i] <= 0;i++) {
-            if (i == 0 || nums[i - 1] != nums[i]) {
-                twoSums(nums, i, res);
-            }
-        }
-        return res;
-    }
 
-    private void twoSums(int[] nums, int i, List<List<Integer>> res) {
-        int low = i + 1;
-        int high = nums.length - 1;
+        for (int i=0; i<nums.length;i++) {
+            int num = nums[i];
 
-        while (low < high) {
-            int sum = nums[i] + nums[low] + nums[high];
-            if (sum < 0) {
-                low++;
-            } else if (sum > 0) {
-                high--;
-            } else {
-                res.add(List.of(nums[i], nums[low], nums[high]));
-                low++;
-                high--;
-                while (low < high && nums[low] == nums[low - 1]) {
-                    low++;
+            // To avoid repeating, since we have num + l + r
+            if (i > 0 && num == nums[i - 1]) continue;
+
+            int l = i + 1;
+            int r = nums.length - 1;
+
+            while (l < r) {
+                int threeSum = num + nums[l] + nums[r];
+                if (threeSum > 0) r--;
+                else if (threeSum < 0) l++;
+                else {
+                    res.add(List.of(num, nums[l], nums[r]));
+                    l++;
+                    while (nums[l] == nums[l - 1] && l < r) l++;
                 }
             }
         }
+        return res;
     }
 }
