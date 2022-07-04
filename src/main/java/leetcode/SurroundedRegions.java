@@ -10,15 +10,6 @@ import java.util.List;
 
 public class SurroundedRegions {
 
-    class Pair {
-        public Integer r;
-        public Integer c;
-
-        public Pair(Integer r, Integer c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
     int ROWS;
     int COLS;
     char[][] board;
@@ -31,20 +22,15 @@ public class SurroundedRegions {
         this.ROWS = board.length;
         this.COLS = board[0].length;
 
-        List<Pair> borders = new ArrayList<>();
 
         for (int r=0; r<ROWS;r++) {
-            borders.add(new Pair(r, 0));
-            borders.add(new Pair(r, COLS - 1));
+            dfs(r, 0);
+            dfs(r, COLS - 1);
         }
 
         for (int c=0; c<COLS;c++) {
-            borders.add(new Pair(0, c));
-            borders.add(new Pair(ROWS - 1, c));
-        }
-
-        for (Pair p : borders) {
-            dfs(p.r, p.c);
+            dfs(0, c);
+            dfs(ROWS - 1, c);
         }
 
         for (int r=0;r<ROWS;r++) {

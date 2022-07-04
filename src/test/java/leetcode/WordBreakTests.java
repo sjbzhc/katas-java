@@ -61,4 +61,12 @@ public class WordBreakTests {
         List<String> dict = List.of("leet","code");
         Assertions.assertThat(wb.wordBreakDp("leetcode", dict)).isTrue();
     }
+
+    @Test
+    public void word_break_dp_bottoms_up() {
+        WordBreak wb = new WordBreak();
+        List<String> dict = List.of("leet","code");
+        Assertions.assertThat(wb.wordBreakBottomsUp("leetcode", dict)).isTrue();
+    }
+
 }

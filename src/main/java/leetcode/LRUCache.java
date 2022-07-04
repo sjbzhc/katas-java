@@ -73,7 +73,6 @@ public class LRUCache {
 
             cache.put(key, newNode);
             addToLinkedList(newNode);
-
             size++;
 
             if (size > capacity) {

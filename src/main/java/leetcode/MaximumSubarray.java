@@ -19,13 +19,17 @@ public class MaximumSubarray {
         return max;
     }
 
+    /*
+     * Time: O(n)
+     * Space: O(1)
+     * */
     public int maxSubArrayGreedy(int[] nums) {
         int currentSubarray = 0;
         int max = Integer.MIN_VALUE;
 
-        for (int i=0;i<nums.length;i++) {
+        for (int num : nums) {
             if (currentSubarray < 0) currentSubarray = 0;
-            currentSubarray += nums[i];
+            currentSubarray += num;
             max = Math.max(max, currentSubarray);
         }
         return max;

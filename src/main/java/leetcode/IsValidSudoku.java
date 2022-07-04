@@ -37,9 +37,12 @@ public class IsValidSudoku {
                 if (current == '.') continue;
 
                 if (rows.get(r).contains(current)) return false;
+                rows.get(r).add(current);
                 if (cols.get(c).contains(current)) return false;
+                cols.get(c).add(current);
                 String key = r/3 + String.valueOf(c/3);
                 if (blocks.get(key).contains(current)) return false;
+                blocks.get(key).add(current);
             }
         }
 

@@ -1,6 +1,9 @@
 package leetcode;
 
-import java.util.Arrays;
+/*
+* Time: O(n)
+* Space: O(n)
+* */
 
 public class ProductExceptSelf {
     public int[] productExceptSelf(int[] nums) {

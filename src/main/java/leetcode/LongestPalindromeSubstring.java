@@ -1,5 +1,10 @@
 package leetcode;
 
+/*
+* Time: O(n2)
+* Space: O(1)
+* */
+
 public class LongestPalindromeSubstring {
     int low;
     int maxLength;
@@ -20,6 +25,8 @@ public class LongestPalindromeSubstring {
             high++;
         }
 
+        // after last while, we went one too far left and right
+        // for right it doesn't matter, as substring is not inclusive [), but for left we need correction
         if (high - low - 1 > maxLength) {
             maxLength = high - low - 1;
             this.low = low + 1;

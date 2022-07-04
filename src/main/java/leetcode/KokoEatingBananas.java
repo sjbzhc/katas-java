@@ -12,16 +12,17 @@ public class KokoEatingBananas {
         for (int p : piles) r = Math.max(r, p);
 
         while (l < r) {
-            int currentSpeed = (l + r) / 2;
+            int m = (l + r) / 2;
 
             int time = 0;
             for (int p : piles) {
-                time += Math.ceil((double) p / currentSpeed);
+                time += Math.ceil((double) p / m);
             }
 
-            if (time <= h) {
-                r = currentSpeed;
-            } else l = currentSpeed + 1;
+            if (time > h) {
+                l = m + 1;
+
+            } else r = m;
         }
         return r;
     }

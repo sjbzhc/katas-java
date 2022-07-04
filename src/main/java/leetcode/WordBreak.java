@@ -94,7 +94,8 @@ public class WordBreak {
     }
 
     /*
-    * Time: O(n3), Space: O(n)
+    * Time: O(n3)
+    * Space: O(n)
     * Works by saving the progress state in the dp array.
     *
     * Right iterates from 1 to s.length.
@@ -147,6 +148,31 @@ public class WordBreak {
             }
         }
         return dp[s.length()];
+    }
+
+    /*
+    * Dp stands for substrings. So in leetcode
+    * dp f f f f t f f f t means that code was found and we did not find any substring from leet yet
+    * Time: O(n3)
+    * Space: O(n)
+    * */
+
+    public boolean wordBreakBottomsUp(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[s.length()] = true;
+
+        for (int i=s.length(); i>=0; i--) {
+            for (String word : wordDict) {
+                if (i + word.length() <= s.length() && s.substring(i, i + word.length()).equals(word)) {
+                    // we want to establish a chain of true values, all the way to dp[s.length()]
+                    dp[i] = dp[i + word.length()];
+                }
+                if (dp[i]) {
+                    break;
+                }
+            }
+        }
+        return dp[0];
     }
 
 }

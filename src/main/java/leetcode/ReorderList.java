@@ -11,7 +11,7 @@ import java.util.List;
 public class ReorderList {
     public void reorderList(ListNode head) {
         ListNode slow = head;
-        ListNode fast = head.next;
+        ListNode fast = head;
 
         // advance slow until end of first half
         while (fast != null && fast.next != null) {

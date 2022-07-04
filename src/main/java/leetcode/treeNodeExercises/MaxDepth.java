@@ -3,15 +3,18 @@ package leetcode.treeNodeExercises;
 import java.util.LinkedList;
 import java.util.Stack;
 
+/*
+* Time: O(n)
+* Space: O(h)
+* */
 public class MaxDepth {
     public int maxDepth(TreeNode root) {
-        if (root == null) {
-            return 0;
-        } else {
-            int left_height = maxDepth(root.left);
-            int right_height = maxDepth(root.right);
-            return Math.max(left_height, right_height) + 1;
-        }
+        if (root == null) return 0;
+
+        int left_height = maxDepth(root.left);
+        int right_height = maxDepth(root.right);
+        return Math.max(left_height, right_height) + 1;
+
     }
 
     public int maxDepthIterative(TreeNode root) {
