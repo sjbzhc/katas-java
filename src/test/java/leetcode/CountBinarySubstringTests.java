@@ -1,6 +1,5 @@
 package leetcode;
 
-import leetcode.CountBinarySubstring;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 

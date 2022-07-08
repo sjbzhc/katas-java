@@ -70,29 +70,30 @@ public class MeetingRooms {
     *
     * */
 
+    /*
+    * Time: O(n log n)
+    * Space: O(n)
+    * */
+
     public int minMeetingRoomsPriorityQueue(int[][] intervals) {
         if (intervals.length == 0) return 0;
 
         // Comparator is for a min-heap, as we are ordering ascending.
-        Comparator<Integer> comparator = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer a, Integer b) {
-                return a - b;
-            }
-        };
-        PriorityQueue<Integer> allocator = new PriorityQueue<>(intervals.length, comparator);
-
+        PriorityQueue<Integer> pq = new PriorityQueue<>(intervals.length);
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
-        allocator.add(intervals[0][1]);
+        pq.add(intervals[0][1]);
 
         for (int i=1; i< intervals.length; i++) {
+            int[] interval = intervals[i];
+            int start = interval[0];
+            int end = interval[1];
 
-            if (intervals[i][0] >= allocator.peek()) {
-                allocator.poll();
-            }
-            allocator.add(intervals[i][1]);
+            int earlieastEnding = pq.peek();
+
+            if (start >= earlieastEnding) pq.poll();
+            pq.add(end);
         }
-        return allocator.size();
+        return pq.size();
     }
 }

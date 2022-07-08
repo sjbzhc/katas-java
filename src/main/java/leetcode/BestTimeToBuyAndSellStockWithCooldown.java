@@ -15,8 +15,8 @@ import java.util.Map;
 *   b(0): p=1    c(0): p=1
 * s(2): p=3
 *
-* Time: O()
-* Space: O()
+* Time: O(n)
+* Space: O(n)
 * */
 
 public class BestTimeToBuyAndSellStockWithCooldown {

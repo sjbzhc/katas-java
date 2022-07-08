@@ -23,54 +23,84 @@ package leetcode;
 *
 * */
 
+/*
+* l   r
+* 1 2 3 t
+* 4 5 6
+* 7 8 9 b
+* */
+
+/*
+* Time: O(n2)
+* Space: O(1)
+* */
+
 public class RotateImage {
     public void rotate(int[][] matrix) {
         int l = 0;
         int r = matrix.length - 1;
 
         while (l < r) {
+            // we want to do n-1 iterations.
             for (int i=0; i < r - l; i++) {
-                int top = l;
-                int bottom = r;
+                // top = r and bottom = r since we have a square matrix
+                int t = l;
+                int b = r;
 
                 // Save tl in tmp
-                int tmp = matrix[top][l + i];
+                // tl moves to the left
+                int tmp = matrix[t][l + i];
 
                 // Move bl into tl
-                matrix[top][l + i] = matrix[bottom - i][l];
+                // bl moves up
+                matrix[t][l + i] = matrix[b - i][l];
 
                 // Move br into bl
-                matrix[bottom - i][l] = matrix[bottom][r - i];
+                // br moves to the left
+                matrix[b - i][l] = matrix[b][r - i];
 
                 // Move tr into br
-                matrix[bottom][r - i] = matrix[top + i][r];
+                // tr moves down
+                matrix[b][r - i] = matrix[t + i][r];
 
                 // Move tl into tr
-                matrix[top + i][r] = tmp;
+                matrix[t + i][r] = tmp;
             }
-            r--;
             l++;
+            r--;
         }
-
     }
 
+    /*
+    * Time: O(n*m)
+    * Space: O(1)
+    * */
 
+    public void rotate2(int[][] matrix) {
+        transpose(matrix);
+        reverse(matrix);
+    }
 
+    public void reverse(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n / 2; j++) {
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][n - j - 1];
+                matrix[i][n - j - 1] = tmp;
+            }
+        }
+    }
 
-
-//    public void rotate(int[][] matrix) {
-//        int n = matrix.length;
-//        int n0 = n - 1;
-//        for (int i=0; i< (n+1) / 2; i++) {
-//            for (int j=0 ; j < n / 2; j++) {
-//                int temp = matrix[n0 - j][i];
-//                matrix[n0 - j][i] = matrix[n0 - i][n0 - j];
-//                matrix[n0 - i][n0 - j] = matrix[j][n0 -i];
-//                matrix[j][n0 - i] = matrix[i][j];
-//                matrix[i][j] = temp;
-//            }
-//        }
-//    }
-
+    public void transpose(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+    }
 
 }

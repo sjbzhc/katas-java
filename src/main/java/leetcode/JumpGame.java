@@ -53,36 +53,40 @@ public class JumpGame {
         return false;
     }
 
+    /*
+    * Time: O(n2)
+    * Space: O(n)
+    * */
+
     public boolean canJumpDpBu(int[] nums) {
-        Index[] memo = new Index[nums.length];
-        for (int i = 0; i < memo.length; i++) {
-            memo[i] = Index.UNKNOWN;
-        }
-        memo[memo.length - 1] = Index.GOOD;
+        boolean[] memo = new boolean[nums.length];
+        memo[memo.length - 1] = true;
 
         for (int i = nums.length - 2; i >= 0; i--) {
             int furthestJump = Math.min(i + nums[i], nums.length - 1);
             for (int j = i + 1; j <= furthestJump; j++) {
-                if (memo[j] == Index.GOOD) {
-                    memo[i] = Index.GOOD;
+                // if we get to j, it means we started from i
+                if (memo[j]) {
+                    memo[i] = true;
                     break;
                 }
             }
         }
 
-        return memo[0] == Index.GOOD;
+        return memo[0] == true;
     }
 
     /*
-    * we start from right to left
+    * Time: O(n)
+    * Space: O(n)
     *
-    * if we can reach the current goal from i (by increasing by nums[i]), we move the goal to the left.
     * */
 
     public boolean canJumpGreedy(int[] nums) {
         int goal = nums.length - 1;
 
         for (int i = nums.length - 1; i >= 0; i--) {
+            // i + jump length
             if (i + nums[i] >= goal) goal = i;
         }
 

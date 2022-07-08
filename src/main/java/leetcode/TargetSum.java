@@ -37,6 +37,7 @@ public class TargetSum {
         Pair key = new Pair(i, sum);
         if (dp.containsKey(key)) return dp.get(key);
 
+        // mapping a (index, currentTotal) key to the number of possible ways to solve the subproblem i +1 (includes +/-)
         dp.put(key, backtrack(i + 1, key.total + nums[i]) + backtrack(i + 1, key.total -  nums[i]));
 
         return dp.get(key);
