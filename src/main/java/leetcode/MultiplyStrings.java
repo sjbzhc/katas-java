@@ -21,10 +21,9 @@ public class MultiplyStrings {
 
         int n = sb1.length() + sb2.length();
 
-        StringBuilder res = new StringBuilder();
-
-        for (int i=0; i< n; i++) {
-            res.append(0);
+        List<Integer> res = new ArrayList<>();
+        for (int i=0; i<n;i++) {
+            res.add(0);
         }
 
         for (int i=0; i<sb1.length(); i++) {
@@ -33,23 +32,24 @@ public class MultiplyStrings {
                 int digit1 = sb1.charAt(i) - '0';
                 int digit2 = sb2.charAt(j) - '0';
 
-                int carry = res.charAt(currentIndex) - '0';
+                int carry = res.get(currentIndex);
                 int multiplication = digit1 * digit2 + carry;
 
-                char digitChar = (char) (multiplication % 10 + '0');
-                res.setCharAt(currentIndex, digitChar);
+                res.set(currentIndex, multiplication % 10);
 
-                int newCarry = (res.charAt(currentIndex + 1) - '0') + multiplication / 10;
-                char digitCarry = (char) (newCarry + '0');
-                res.setCharAt(currentIndex + 1, digitCarry);
+                int newCarry = res.get(currentIndex + 1) + multiplication / 10;;
+                res.set(currentIndex + 1, newCarry);
             }
         }
 
-        if (res.charAt(res.length() - 1) == '0') {
-            res.deleteCharAt(res.length() - 1);
+        if (res.get(res.size() - 1) == 0) {
+            res.remove(res.size() - 1);
         }
 
-        res.reverse();
-        return res.toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i=res.size() - 1; i>=0; i--) {
+            sb.append(res.get(i));
+        }
+        return sb.toString();
     }
 }

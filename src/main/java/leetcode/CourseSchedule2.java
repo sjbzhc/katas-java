@@ -8,15 +8,16 @@ public class CourseSchedule2 {
     int BLACK = 2;
     int[] colors;
     boolean canBeSolved = true;
+    Map<Integer, List<Integer>> adj;
     List<Integer> topologicalSort = new ArrayList<>();
 
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> dependencies = buildGraph(prerequisites);
+        adj = buildAdj(prerequisites);
         colors = new int[numCourses];
 
         for (int course = 0; course < numCourses; course++) {
             if (colors[course] == WHITE) {
-                dfs(course, dependencies);
+                dfs(course);
             }
         }
 
@@ -33,14 +34,14 @@ public class CourseSchedule2 {
         return finalResult;
     }
 
-    private void dfs(int course, Map<Integer, List<Integer>> dependencies) {
+    private void dfs(int course) {
         if(!canBeSolved) return;
 
         colors[course] = GRAY;
 
-        for (int neighbour : dependencies.getOrDefault(course, new ArrayList<>())) {
+        for (int neighbour : adj.getOrDefault(course, new ArrayList<>())) {
             if (colors[neighbour] == WHITE) {
-                dfs(neighbour, dependencies);
+                dfs(neighbour);
             } else if (colors[neighbour] == GRAY) {
                 canBeSolved = false;
             }
@@ -50,17 +51,15 @@ public class CourseSchedule2 {
         colors[course] = BLACK;
     }
 
-    private Map<Integer, List<Integer>> buildGraph(int[][] prerequisites) {
-        Map<Integer, List<Integer>> dependencies = new HashMap<>();
-        for (int[] prerequisite : prerequisites) {
-            int src = prerequisite[1];
-            int dest = prerequisite[0];
-            List<Integer> list = dependencies.getOrDefault(src, new ArrayList<>());
-            if (!list.contains(dest)) {
-                list.add(dest);
-            }
-            dependencies.put(src, list);
+    private Map<Integer, List<Integer>> buildAdj(int[][] prerequisites) {
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        for (int[] p : prerequisites) {
+            int src = p[1];
+            int dest = p[0];
+            List<Integer> list = adj.getOrDefault(src, new ArrayList<>());
+            if (!list.contains(dest)) list.add(dest);
+            adj.put(src, list);
         }
-        return dependencies;
+        return adj;
     }
 }

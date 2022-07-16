@@ -55,6 +55,11 @@ public class TrappingRainWater {
         return max;
     }
 
+    /*
+    * Time: O(n)
+    * Space: O(n)
+    * */
+
     public int trapDynamicProgramming(int[] heights) {
         int result = 0;
         int n = heights.length;
@@ -75,5 +80,34 @@ public class TrappingRainWater {
             result += Math.min(leftMax[i], rightMax[i]) -heights[i];
         }
         return result;
+    }
+
+    /*
+     * Time: O(n)
+     * Space: O(1)
+     * */
+
+    public int trapWaterDpConstantMemory(int[] heights) {
+        int res = 0;
+        int l=0;
+        int r=heights.length - 1;
+        int maxLeft = heights[l];
+        int maxRight = heights[r];
+
+        while (l < r) {
+            if (maxLeft < maxRight) {
+                // we arrived here because l < r. That means that r is for sure smaller, so we don't need
+                // to compare with r anymore (Math.min(leftMax, rightMax) - h[i])
+                // We start with l++ since we are offset by the fact that the outermost heights cannot trap any water
+                l++;
+                maxLeft = Math.max(maxLeft, heights[l]);
+                res += maxLeft - heights[l];
+            } else {
+                r--;
+                maxRight = Math.max(maxRight, heights[r]);
+                res += maxRight - heights[r];
+            }
+        }
+        return res;
     }
 }

@@ -3,8 +3,8 @@ package leetcode;
 import java.util.*;
 
 /*
-* Time: O(ne)
-* Space: O(ne)
+* Time: O(V * E) in complete graph, all nodes are added to all edges
+* Space: O(V * E) nodes in queue
 * */
 
 public class NetworkDelayTime {
@@ -38,6 +38,8 @@ public class NetworkDelayTime {
 
         int answer = Integer.MIN_VALUE;
         for (int i = 1; i <= n; i++) {
+            // We take max, as each value in signalReceivedAt is the minimum for each node. So max represents
+            // the shortest time it took for the longest path
             answer = Math.max(answer, signalReceivedAt[i]);
         }
 
@@ -69,6 +71,7 @@ public class NetworkDelayTime {
                 // always record the smaller value
                 if (signalReceivedAt[destinationNode] > arrivalTimeToDestination) {
                     signalReceivedAt[destinationNode] = arrivalTimeToDestination;
+                    // if we updated this time, we should re-visit it's neighbors
                     q.add(destinationNode);
                 }
             }

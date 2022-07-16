@@ -21,6 +21,14 @@ public class TrappingRainWaterTests {
     }
 
     @Test
+    public void trapping_rainwater_dp_constant_memory() {
+        TrappingRainWater tr = new TrappingRainWater();
+        int[] heights = {0,1,0,2,1,0,1,3,2,1,2,1};
+
+        Assertions.assertThat(tr.trapWaterDpConstantMemory(heights)).isEqualTo(6);
+    }
+
+    @Test
     public void trapping_rainwater_2() {
         TrappingRainWater2 tr = new TrappingRainWater2();
         int[] heights = {0,1,0,2,1,0,1,3,2,1,2,1};

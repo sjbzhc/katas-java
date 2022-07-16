@@ -25,6 +25,7 @@ public class HandOfStraights {
         while (!pq.isEmpty()) {
             int first = pq.peek();
 
+            // Since we wnt consecutive numbers, i starting from first to groupSize should always be present
             for (int i=first; i<first + groupSize; i++) {
                 if (!count.containsKey(i)) return false;
 

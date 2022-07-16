@@ -25,8 +25,10 @@ public class CheapestFlightWithKStops {
 
                 if (prices[source] == Integer.MAX_VALUE) continue;
 
-                if (prices[source] + price < temp[destination]) {
-                    temp[destination] = prices[source] + price;
+                int newPrice = prices[source] + price;
+
+                if (newPrice < temp[destination]) {
+                    temp[destination] = newPrice;
                 }
             }
             prices = Arrays.copyOf(temp, temp.length);

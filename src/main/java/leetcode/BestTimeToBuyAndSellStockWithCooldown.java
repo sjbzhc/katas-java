@@ -6,14 +6,20 @@ import java.util.Map;
 /*
 * The decision tree is to decide to either buy or sell, but with the constraint that if we bought
 * we need to cool down and if we did not buy yet, we cannot sell
-* Example: 1 2 3 0 2 | b: buy, c: cool down, s: sell, p: profit
 *
-*                                               1
-*                        b(1): p=-1                              c(1): p=0
-*          s(2): p=1             c(2): p=-1
-*          c(3): p=1
-*   b(0): p=1    c(0): p=1
-* s(2): p=3
+* 0 1 2 3 index
+* 1 2 4 3 prices
+*
+* 0
+*     b(-1)
+*         bx
+*         c(-1)
+*             bx
+*             c(-1)
+*             s(3) <-
+*         s(1)
+*     c
+*     sx
 *
 * Time: O(n)
 * Space: O(n)

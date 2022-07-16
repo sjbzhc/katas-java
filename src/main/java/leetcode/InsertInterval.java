@@ -19,7 +19,7 @@ public class InsertInterval {
 
             if (newInterval[1] < interval[0]) {
                 res.add(newInterval);
-                res.addAll(Arrays.asList(Arrays.copyOfRange(intervals, i, interval.length)));
+                res.addAll(Arrays.asList(Arrays.copyOfRange(intervals, i, intervals.length)));
                 return res.toArray(new int[res.size()][]);
             }
             // We can assume that all intervals with an ending time greater than the start of the new interval

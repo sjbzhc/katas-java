@@ -1,7 +1,6 @@
 package leetcode;
 
-import java.util.ArrayDeque;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
 * Deque / DP:
@@ -26,49 +25,58 @@ import java.util.PriorityQueue;
 * by i.
 * */
 
+
+/*
+* Dequeue is monotonically descending
+* Before we add a new value, we check if the previous values are smaller. If they are, we remove them until
+* the new value is the next descending value
+*
+* ll:
+* 3 2 1 <- get last from here
+*
+* */
+
+/*
+* Time: O(n)
+* Space: O(1)
+* */
 public class SlidingWindowMaximum {
-    ArrayDeque<Integer> dq = new ArrayDeque<>();
+    // contains indices
+    LinkedList<Integer> dq = new LinkedList<>();
     int[] nums;
 
-    public void cleanDeque(int i, int k) {
-        if (!dq.isEmpty() && dq.getFirst() == (i - k)) {
-            dq.removeFirst();
-        }
-
-        while(!dq.isEmpty() && nums[i] > nums[dq.getLast()]) {
-            dq.removeLast();
-        }
-    }
-
-
-
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int n = nums.length;
+        List<Integer> res = new ArrayList<>();
+        int l = 0;
+        int r = 0;
 
-        if (n*k == 0) return new int[0];
-        if (k == 1) return nums;
-
-        this.nums = nums;
-        int maxId = 0;
-
-        for (int i=0; i<k;i++) {
-            cleanDeque(i, k);
-            dq.addLast(i);
-
-            if (nums[i] > nums[maxId]) {
-                maxId = i;
+        while (r < nums.length) {
+            while (!dq.isEmpty() && nums[dq.getLast()] < nums[r]) {
+                dq.removeLast();
             }
+
+            // will add from right by default
+            dq.add(r);
+
+            // biggest element in dq is outside of window
+            if (l > dq.getFirst()) {
+                dq.removeFirst();
+            }
+
+            // window is at least size k
+            // we add the max value and move the window at each cycle
+            if (r + 1 >= k) {
+                res.add(nums[dq.getFirst()]);
+                l++;
+            }
+            r++;
         }
 
-        int[] output = new int[n-k+1];
-        output[0] = nums[maxId];
-
-        for (int i=k; i<n;i++) {
-            cleanDeque(i, k);
-            dq.addLast(i);
-            output[i-k+1] = nums[dq.getFirst()];
+        int[] resArr = new int[res.size()];
+        for (int i=0; i<res.size();i++) {
+            resArr[i] = res.get(i);
         }
-        return output;
+        return resArr;
     }
 
     public int[] maxSlidingWindowPQ(int[] nums, int k) {

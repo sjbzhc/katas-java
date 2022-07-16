@@ -31,7 +31,7 @@ public class AddTwoNumbersTests {
     }
 
     @Test
-    public void add_two_numbers2_1() {
+    public void add_two_numbers_1() {
         AddTwoNumbers at = new AddTwoNumbers();
         ListNode l1_2 = new ListNode(2);
         ListNode l1_4 = new ListNode(4);
@@ -51,7 +51,7 @@ public class AddTwoNumbersTests {
         r_7.next = r_0;
         r_0.next = r_8;
 
-        Assertions.assertThat(at.addTwoNumbers2(l1_2, l2_5).toString()).isEqualTo(r_7.toString());
+        Assertions.assertThat(at.addTwoNumbers(l1_2, l2_5).toString()).isEqualTo(r_7.toString());
     }
 
     @Test

@@ -16,6 +16,7 @@ public class MaxProfit {
                 int profit = prices[r] - prices[l];
                 ans = Math.max(profit, ans);
             } else {
+                // if we moved l, it means r was smaller, so r is a better moment to buy
                 l = r;
             }
             r++;

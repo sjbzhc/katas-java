@@ -3,16 +3,18 @@ package leetcode;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 
+import java.util.List;
+
 public class NQueensTests {
     @Test
-    public void n_queens() {
+    public void test() {
         NQueens nq = new NQueens();
-        Assertions.assertThat(nq.totalNQueens(4)).isEqualTo(2);
-    }
 
-    @Test
-    public void n_queens_2() {
-        NQueens2 nq = new NQueens2();
-        Assertions.assertThat(nq.totalNQueens(4)).isEqualTo(2);
+        List<List<String>> res = List.of(
+                List.of(".Q..","...Q","Q...","..Q."),
+                List.of("..Q.","Q...","...Q",".Q..")
+        );
+
+        Assertions.assertThat(nq.solveNQueens(4)).isEqualTo(res);
     }
 }

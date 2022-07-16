@@ -17,7 +17,7 @@ public class ThreeSum {
         for (int i=0; i<nums.length;i++) {
             int num = nums[i];
 
-            // To avoid repeating, since we have num + l + r
+            // To avoid repeating in i
             if (i > 0 && num == nums[i - 1]) continue;
 
             int l = i + 1;
@@ -30,6 +30,7 @@ public class ThreeSum {
                 else {
                     res.add(List.of(num, nums[l], nums[r]));
                     l++;
+                    // avoid repeating in l (could also do it in r)
                     while (nums[l] == nums[l - 1] && l < r) l++;
                 }
             }

@@ -3,8 +3,8 @@ package leetcode;
 import java.util.*;
 
 /*
-* Time: O(n * m2). For each word (n) we create all substrings of m (a matrix, with * in the diagonal)
-* Space: O(n * m2). For each of the word, we will have the wildcard word with the same original word.
+* Time: O(n2 * m). For each word (n) we create all substrings of m (a matrix, with * in the diagonal)
+* Space: O(n2 * m). For each of the word, we will have the wildcard word with the same original word.
 *
 * We first build a dictionary to map all possible strings in the wordList that stem from a wildcard char:
 * *og -> {dog, cog}, d*g -> {dog}
@@ -17,27 +17,39 @@ import java.util.*;
 *   Otherwise, if the word has not been visited yet, we add it to the visited map and to the queue.
 * */
 
-public class WordLadder {
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        int n = beginWord.length();
-        int count = 1;
+/*
+* Time: O(n2 m)
+* Space: O(n2 m)
+* */
 
-        Map<String, List<String>> wildcardStringToWords = new HashMap<>();
+public class WordLadder {
+    public static String beginWord;
+    public static String endWord;
+    public Map<String, List<String>> wildcardStringToWords;
+    int n;
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        n = beginWord.length();
+        this.beginWord = beginWord;
+        this.endWord = endWord;
+        wildcardStringToWords = new HashMap<>();
 
         wordList.forEach(word -> {
             for (int i = 0; i < n; i++) {
-                String wildcardString = word.substring(0, i) + '*' + word.substring(i + 1, n);
-                List<String> words = wildcardStringToWords.getOrDefault(wildcardString, new ArrayList<>());
+                String key = word.substring(0, i) + '*' + word.substring(i + 1, n);
+                List<String> words = wildcardStringToWords.getOrDefault(key, new ArrayList<>());
                 words.add(word);
-                wildcardStringToWords.put(wildcardString, words);
+                wildcardStringToWords.put(key, words);
             }
         });
+        return bfs();
+    }
 
+    private int bfs() {
+        int count = 1;
         Queue<String> q = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
         q.add(beginWord);
-
-        Map<String, Boolean> visitedWords = new HashMap<>();
-        visitedWords.put(beginWord, true);
+        visited.add(beginWord);
 
         while (!q.isEmpty()) {
             int size = q.size();
@@ -46,15 +58,13 @@ public class WordLadder {
                 String word = q.poll();
 
                 for (int i = 0; i < word.length(); i++) {
-                    String wildcardString = word.substring(0, i) + '*' + word.substring(i + 1, n);
+                    String key = word.substring(0, i) + '*' + word.substring(i + 1, n);
 
-                    for (String adjacentWord : wildcardStringToWords.getOrDefault(wildcardString, new ArrayList<>())) {
-                        if (adjacentWord.equals(endWord)) {
-                            return count + 1;
-                        }
+                    for (String adjacentWord : wildcardStringToWords.getOrDefault(key, new ArrayList<>())) {
+                        if (adjacentWord.equals(endWord)) return count + 1;
 
-                        if (!visitedWords.containsKey(adjacentWord)) {
-                            visitedWords.put(adjacentWord, true);
+                        if (!visited.contains(adjacentWord)) {
+                            visited.add(adjacentWord);
                             q.add(adjacentWord);
                         }
                     }
@@ -63,9 +73,6 @@ public class WordLadder {
             }
             count++;
         }
-
-
-
         return 0;
     }
 }

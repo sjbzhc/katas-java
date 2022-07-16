@@ -6,8 +6,20 @@ import java.util.Queue;
 
 public class CoinChange {
     /*
-    * Time: O(m * n), m = amount, n = number of coins
-    * Space: O(m)
+    * Brute force with 2^n leafs
+    *
+    * Time: O(n*amount)
+    * Space: O(n)
+    *
+    * For each amount, we can check against all possible coins. There are 2 options:
+    *   1) The coin matches the amount, so a - coins[coinIndex] == 0, leading to dp[0] == 0, since we initialized it
+    *   2) The amount can be created by a combination of the current coin and it's complement: 1+ dp[complement], with
+    *   complement returning either the number of coins to create it or the sentinel value. Since we do
+    *   Math.min(dp[a], dp[complement] + 1), dp[a] would stay the same if the complement doesn't return a meaningful
+    *   value, as it would return the sentinel value.
+    *   The base case is when a - coins[coinIndex] = 0, which means the amount and coin match. This leads to the
+    *   complement being 0 and with dp[0] initialized to 0, we get 1 for Math.min(dp[a], dp[complement] + 1)
+    *
     * */
 
     public int coinChangeDP(int[] coins, int amount) {

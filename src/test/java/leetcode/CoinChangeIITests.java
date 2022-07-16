@@ -10,7 +10,7 @@ public class CoinChangeIITests {
 
         int[] coins = {1,2,5};
 
-        Assertions.assertThat(cc.change(5, coins)).isEqualTo(4);
+        Assertions.assertThat(cc.coinChange(coins, 5)).isEqualTo(4);
     }
 
     @Test

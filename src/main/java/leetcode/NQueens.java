@@ -1,60 +1,67 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /*
 * Time: O(n!)
-* Space: O(n)
-* We need a base case. In this case, we return 1 because it means we reached the end of the rows, so we must have
-* found one possible placement for all queens (we only reach a valid option, as otherwise we would run into the
-* continue within the loop).
-*
-* To create the recursion tree, we iterate through all possible options. In this case it means increasing the column,
-* since the row number is contained as an argument in the function.
-*
-* If we encounter a valid option, we:
-*   update the state by adding constrains (cols, diags and antidiags).
-*   recursively call that option, which will generate all possible paths for it.
-*   after calling backtrack, we must go back to the previous state (this is the actual backtracking), by removing the
-*   cols, diags and antidiags we just added. This leaves a clean state for the next round of the loop.
-*
-*
-* Summarized:
-* Follow a path until it branches.
-* In the branch, follow each of the paths. Need to know how to come back, so keep track of the state, so you can reverse
-* it to come back to where you started.
+* Space: O(n2)
 * */
 
 public class NQueens {
-    int size;
-
-
-    public int totalNQueens(int n) {
-        size = n;
-        return backtrack(0, new HashSet<>(), new HashSet<>(), new HashSet<>());
+    List<List<String>> res = new ArrayList<>();
+    char[][] board;
+    public Set<Integer> col = new HashSet<>();
+    public Set<Integer> posDiag = new HashSet<>();
+    public Set<Integer> negDiag = new HashSet<>();
+    public int n;
+    public List<List<String>> solveNQueens(int n) {
+        this.n = n;
+        this.board = creteBoard(n);
+        backtrack(0);
+        return res;
     }
 
-    private int backtrack(int row, HashSet<Object> diagonals, HashSet<Object> antidiagonals, HashSet<Object> cols) {
-        // Base case
-        if (row == size) return 1;
-
-        int solutions = 0;
-        for (int col = 0; col < size; col++) {
-            int currentDiagonal = row - col;
-            int currentAntidiagonal = row + col;
-            // If queen cannot be placed, continue
-            if (cols.contains(col) || diagonals.contains(currentDiagonal) || antidiagonals.contains(currentAntidiagonal)) continue;
-            cols.add(col);
-            diagonals.add(currentDiagonal);
-            antidiagonals.add(currentAntidiagonal);
-
-            solutions += backtrack(row + 1, diagonals, antidiagonals, cols);
-
-            cols.remove(col);
-            diagonals.remove(currentDiagonal);
-            antidiagonals.remove(currentAntidiagonal);
+    private void backtrack(int r) {
+        if (r == n) {
+            res.add(stringify(board));
+            return;
         }
 
-        return solutions;
+        for (int c=0; c<n; c++) {
+            if (col.contains(c) || posDiag.contains(r + c) || negDiag.contains(r - c)) continue;
+
+            col.add(c);
+            posDiag.add(r + c);
+            negDiag.add(r - c);
+            board[r][c] = 'Q';
+
+            backtrack(r + 1);
+
+            col.remove(c);
+            posDiag.remove(r + c);
+            negDiag.remove(r - c);
+            board[r][c] = '.';
+        }
+    }
+
+    private List<String> stringify(char[][] board) {
+        List<String> res = new ArrayList<>();
+        for (char[] row : board) {
+            res.add(new String(row));
+        }
+        return res;
+    }
+
+    public char[][] creteBoard(int n) {
+        char [][] board = new char[n][n];
+        for (int r=0; r<n; r++) {
+            for (int c=0; c<n; c++) {
+                board[r][c] = '.';
+            }
+        }
+        return board;
     }
 }

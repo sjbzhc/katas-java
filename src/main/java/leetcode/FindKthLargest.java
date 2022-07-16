@@ -1,45 +1,37 @@
 package leetcode;
 
-import java.util.PriorityQueue;
-
 /*
-* Time: O((n-k) log k)
-* Space: O(k)
+* Time: O(n) avg case
+* Space: O(1)
 * */
 public class FindKthLargest {
+    int[] nums;
+    int targetIndex;
     public int findKthLargest(int[] nums, int k) {
-        PriorityQueue<Integer> heap = new PriorityQueue<>((n1, n2) -> n1 - n2);
-
-        for (int n: nums) {
-            heap.add(n);
-            if (heap.size() > k)
-                heap.poll();
-        }
-
-        return heap.poll();
+        this.nums = nums;
+        this.targetIndex = nums.length - k;
+        return quickSelect(0, nums.length - 1);
     }
 
-    PriorityQueue<Integer> pq;
-    int k;
-    public void findKLargest(int k, int[] nums) {
-        this.pq = new PriorityQueue<>(k, (n1, n2) -> n1 - n2);
-        this.k = k;
-
-        for (int num : nums) {
-            pq.add(num);
+    private int quickSelect(int l, int r) {
+        int pivotValue = nums[r];
+        int j = l;
+        for (int i=l; i<r; i++) {
+            if (nums[i] < pivotValue) {
+                swap(i, j);
+                j++;
+            }
         }
+        swap(j, r);
 
-        while (pq.size() > k) {
-            pq.poll();
-        }
+        if (targetIndex < j) return quickSelect(l, j - 1);
+        else if (targetIndex > j) return quickSelect(j + 1, r);
+        return nums[j];
     }
 
-    public int add(int val) {
-        pq.add(val);
-        if (pq.size() > k) {
-            pq.poll();
-        }
-
-        return pq.peek();
+    private void swap(int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }

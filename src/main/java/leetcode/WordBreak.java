@@ -153,8 +153,8 @@ public class WordBreak {
     /*
     * Dp stands for substrings. So in leetcode
     * dp f f f f t f f f t means that code was found and we did not find any substring from leet yet
-    * Time: O(n3)
-    * Space: O(n)
+    * Time: O(n3) doubly nested loop and string comparison
+    * Space: O(n) dp array
     * */
 
     public boolean wordBreakBottomsUp(String s, List<String> wordDict) {
@@ -174,5 +174,4 @@ public class WordBreak {
         }
         return dp[0];
     }
-
 }

@@ -58,16 +58,15 @@ public class TopKFrequentElements {
         return Arrays.copyOfRange(unique, n - k, n);
     }
 
-    private void quickFind(int left, int right, int kIndex) {
+    private void quickFind(int left, int right, int targetIndex) {
         if (left == right) return;
 
-        Random rd = new Random();
-        int pivotIndex = left + rd.nextInt(right - left);
+        int pivotIndex = right;
 
         pivotIndex = partition(left, right, pivotIndex);
-        if(pivotIndex == kIndex) return;
-        else if (kIndex < pivotIndex) quickFind(left, pivotIndex - 1, kIndex);
-        else quickFind(pivotIndex + 1, right, kIndex);
+        if(pivotIndex == targetIndex) return;
+        else if (targetIndex < pivotIndex) quickFind(left, pivotIndex - 1, targetIndex);
+        else quickFind(pivotIndex + 1, right, targetIndex);
     }
 
     private int partition(int left, int right, int pivotIndex) {

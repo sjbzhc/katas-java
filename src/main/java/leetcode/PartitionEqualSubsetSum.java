@@ -4,8 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /*
-* Time: O(m * n)
-* Space: O(mn)
+* At each step, we can either add an element or not. Brute force 2^n
+* We could cache with (index, sum), as the current index has 2 possible results of either including or not nums[i]
+*
+* For caching
+* Time: O(n * sum(nums) / 2)
+* Space: O(n * sum(nums) / 2)
+*
+* For DP:
+* Time: O(n sum(nums) / 2)
+* Space: O()
+*
+* Recurrence relation: the solution, if any, must be either when nums[i] == target or when 1 + sum(subarray) == target
+* We store the sum of subarray as new entries in the set
 * */
 
 public class PartitionEqualSubsetSum {

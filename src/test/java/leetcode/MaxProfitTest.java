@@ -10,4 +10,11 @@ public class MaxProfitTest {
         int[] prices = new int[]{7,1,5,3,6,4};
         Assertions.assertThat(mp.maxProfit(prices)).isEqualTo(5);
     }
+
+    @Test
+    public void max_profit2() {
+        MaxProfit mp = new MaxProfit();
+        int[] prices = new int[]{10,1,1,1,1,100};
+        Assertions.assertThat(mp.maxProfit(prices)).isEqualTo(90);
+    }
 }

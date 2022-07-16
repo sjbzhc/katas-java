@@ -67,6 +67,7 @@ public class JumpGame {
             for (int j = i + 1; j <= furthestJump; j++) {
                 // if we get to j, it means we started from i
                 if (memo[j]) {
+                    // we are creating a chain of true, in the best case, from 0 to end
                     memo[i] = true;
                     break;
                 }

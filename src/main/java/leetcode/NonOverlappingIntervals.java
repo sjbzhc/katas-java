@@ -21,7 +21,8 @@ public class NonOverlappingIntervals {
             if (start >= prevEnd) prevEnd = end;
             else {
                 res++;
-                // We remove the one with the largest end, as larger ends increase then chance of overlap
+                // We remove the one with the largest end, as we don't know if another collision could be
+                // in the space smallerEnd -> largerEnd
                 prevEnd = Math.min(prevEnd, end);
             }
         }

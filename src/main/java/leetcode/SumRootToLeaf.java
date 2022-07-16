@@ -5,8 +5,9 @@ import javafx.util.Pair;
 import java.util.Stack;
 
 /*
-* dfs with stack. Use Pair to store Node, Current value (sum of all previous nodes in decimal)
-* When we reach a leaf (both children == null), we add the current value to the total sum
+* Time: O(n)
+* Space: O(h)
+*
 * */
 
 public class SumRootToLeaf {

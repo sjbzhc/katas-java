@@ -28,6 +28,7 @@ public class SpiralOrder {
             }
             r--;
 
+            // square with either no width or no height
             if (!(l < r && t < b)) break;
 
             for (int j = r; j >= l; j--) {
@@ -40,7 +41,6 @@ public class SpiralOrder {
             }
             l++;
         }
-
         return list;
     }
 }

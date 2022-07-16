@@ -4,32 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-*   0 1 2 3 4 5
-* 5 1 x     z 1
-* 2 1 y     y 1
-* 1 1 z     x 1
-*
-* base case 0, with result 1, as any coin can lead to 0
-* a cell in dp means: how many ways for coins to sum up to this amount
-* x means: what is the solution for 1-5 =-4 (dp[row of 5=0][-4], since out of bounds -> 0
-* y means: we can use the solution in y and the solution below (index - 1)
-*   for y it's out of bounds, since it's 1-2=dp[row of 2=1][-1] -> 0
-*   the solution below was 0
-* z means: what is the solution for 1-1=0 (dp[row of 1=2][1] = 1
-*
-* Then we continue with next column
 *
 * Time: O(mn)
 * Space: O(mn)
 * */
 
 /*
-*   0 1 2 3 4 5
-* 0 0 0 0 0 0 0
+*   0 1 2 3 4 5   dp means: how many coins of denomination i do I need to add up to amount j
+* 0 1 0 0 0 0 0
 * 1 1 1 1 1 1 1
 * 2 1 1 2 2 3 3
-* 5 1 1 2 2 3 4
+* 5 1
 *
+*
+* to calculate one cell, we take a look at the number of current combinations for amount j
+* (which is the cell above at i-1) and add it to the number of combinations for amount - coin
 * */
 
 public class CoinChangeII {
@@ -77,10 +66,11 @@ public class CoinChangeII {
     Map<Pair, Integer> map = new HashMap<>();
     int amount;
     int[] coins;
-    public int change(int amount, int[] coins) {
+    public int coinChange(int[] coins, int amount) {
         this.coins = coins;
         this.amount = amount;
-        return dfs(0, 0);
+        int res = dfs(0, 0);
+        return res == 0 ? -1 : res;
     }
 
     private int dfs(int index, int currentAmount) {
@@ -97,6 +87,4 @@ public class CoinChangeII {
         map.put(key, dfs(index, currentAmount + coins[index]) + dfs(index + 1, currentAmount));
         return map.get(key);
     }
-
-
 }
