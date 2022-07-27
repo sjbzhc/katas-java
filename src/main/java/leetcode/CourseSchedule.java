@@ -1,9 +1,6 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
 * Time: O(V + E)
@@ -34,17 +31,9 @@ public class CourseSchedule {
             }
         }
 
-        int[] order;
-
-        if (isPossible) {
-            order = new int[numCourses];
-            for (int i=0; i<numCourses;i++) {
-                order[i] = topologicalOrder.get(numCourses -i -1);
-            }
-        } else {
-            order = new int[0];
-        }
-        return order;
+        if (!isPossible) return new int[]{0};
+        Collections.reverse(topologicalOrder);
+        return topologicalOrder.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private void dfs(int course) {
@@ -69,8 +58,8 @@ public class CourseSchedule {
 
     private void createGraph(int[][] prerequisites) {
         for (int[] prerequisite : prerequisites) {
-            int dest = prerequisite[0];
             int src = prerequisite[1];
+            int dest = prerequisite[0];
             List<Integer> list = adjList.getOrDefault(src, new ArrayList<>());
             list.add(dest);
             adjList.put(src, list);

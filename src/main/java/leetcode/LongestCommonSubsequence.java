@@ -23,7 +23,36 @@ package leetcode;
 * Space: O(mn)
 * */
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LongestCommonSubsequence {
+
+    Map<String, Integer> memo = new HashMap<>();
+    public static String text1;
+    public static String text2;
+    public int longestCommonSubsequenceRecursive(String text1, String text2) {
+        this.text1 = text1;
+        this.text2 = text2;
+        return helper(0, 0);
+    }
+
+    public int helper(int i, int j) {
+        if (i >= text1.length() || j >= text2.length()) return 0;
+        String k = i + "#" + j;
+
+        if (memo.containsKey(k)) return memo.get(k);
+        // i is not part of the solution
+        int option1 = helper(i + 1, j);
+        int firstOccurrence = text2.indexOf(text1.charAt(i), j);
+        int option2 = 0;
+        if (firstOccurrence != -1) {
+            // i is part of the solution, we account for it with 1 +
+            option2 = 1 + helper(i + 1, firstOccurrence + 1);
+        }
+        memo.put(k, Math.max(option1, option2));
+        return memo.get(k);
+    }
     public int longestCommonSubsequence(String text1, String text2) {
         int[][] dp = new int[text1.length() + 1][text2.length() + 1];
 

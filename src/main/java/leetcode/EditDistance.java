@@ -16,7 +16,54 @@ package leetcode;
 *   3 2 1 0
 * */
 
+import java.util.HashMap;
+import java.util.Map;
+
+
+/*
+* Time: O(mn)
+* Space: O(mn)
+* */
 public class EditDistance {
+
+    public static String word1;
+    public static String word2;
+    Map<String, Integer> memo = new HashMap<>();
+    public int minDistanceRecursive(String word1, String word2) {
+        this.word1 = word1;
+        this.word2 = word2;
+        return helper(word1.length() - 1,word2.length() - 1);
+    }
+
+
+    private int helper(int i, int j) {
+        // Ran out of chars in word1, so we need the rest of the chars left in j to complete word2
+        if (i < 0) return j + 1;
+        if (j < 0) return i + 1;
+
+        String k = i + "#" + j;
+        if (memo.containsKey(k)) return memo.get(k);
+
+        if(word1.charAt(i) == word2.charAt(j)) {
+            int option1 = helper(i - 1, j - 1);
+            memo.put(k, option1);
+            return memo.get(k);
+        }
+
+        int option2 = 1 +
+                Math.min(
+                helper(i,j-1),
+                Math.min(
+                        helper(i-1,j),
+                        helper(i-1,j-1)
+                )
+        );
+
+        memo.put(k, option2);
+
+        return memo.get(k);
+    }
+
     public int minDistance(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();

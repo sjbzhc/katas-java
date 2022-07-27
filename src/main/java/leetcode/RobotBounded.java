@@ -36,4 +36,32 @@ public class RobotBounded {
         if ((x == 0 && y ==0) || index != 0) return true;
         return false;
     }
+
+    public boolean isRobotBounded4Cycles(String instructions) {
+        int x = 0;
+        int y = 0;
+
+        int i = 0;
+        int[][] directions = {{-1,0}, {0,1}, {1,0}, {0,-1}};
+
+        for (int j=0; j<4; j++) {
+            for (char c : instructions.toCharArray()) {
+                if (c == 'L') {
+                    if (i == 0) i = 3;
+                    else i--;
+                }
+                if (c == 'R') {
+                    if (i == 3) i = 0;
+                    else i++;
+                }
+                if (c == 'G') {
+                    x += directions[i][0];
+                    y += directions[i][1];
+                }
+            }
+        }
+
+        if (x == 0 && y == 0) return true;
+        return false;
+    }
 }

@@ -28,13 +28,14 @@ public class RegularExpressionMatching {
     }
 
     public boolean dfs(int i, int j) {
-        if (memo[i][j] != null) return memo[i][j];
-
         // both pointers are one position after end of their respective strings. It means match is possible
         if (i >= text.length() && j >= pattern.length()) return true;
 
         // only pattern advanced, it means a char in text was not matched
         if (j >= pattern.length()) return false;
+
+        if (memo[i][j] != null) return memo[i][j];
+
 
         // we need to check if i is within bounds to avoid checking undefined
         // the rest means a match, either due to character matching or wildcard in pattern

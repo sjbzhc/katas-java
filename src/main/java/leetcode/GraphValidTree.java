@@ -1,5 +1,9 @@
 package leetcode;
 
+/*
+* Time: O(n)
+* Space: O(n)
+* */
 public class GraphValidTree {
 
     private class UnionFind {

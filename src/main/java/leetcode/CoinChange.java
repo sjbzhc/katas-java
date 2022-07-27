@@ -22,6 +22,28 @@ public class CoinChange {
     *
     * */
 
+    int[] coins;
+    Integer[][] cache;
+    public int coinChangeRecursive(int[] coins, int amount) {
+        this.coins = coins;
+         cache = new Integer[coins.length + 1][amount + 1];
+        int ret = helper(0, amount);
+        return ret == Integer.MAX_VALUE - 1 ? - 1 : ret;
+    }
+
+    public int helper(int coinIndex, int amount) {
+        if (amount < 0 || coinIndex >= coins.length) return Integer.MAX_VALUE - 1;
+        if (amount == 0) return 0;
+
+        if (cache[coinIndex][amount] != null) return cache[coinIndex][amount];
+
+        cache[coinIndex][amount] = Math.min(
+                1 + helper(coinIndex, amount - coins[coinIndex]),
+                helper(coinIndex + 1, amount)
+        );
+        return cache[coinIndex][amount];
+    }
+
     public int coinChangeDP(int[] coins, int amount) {
         int max = amount + 1;
         int[] dp = new int[amount + 1];

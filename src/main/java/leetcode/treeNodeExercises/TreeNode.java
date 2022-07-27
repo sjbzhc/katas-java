@@ -3,7 +3,7 @@ package leetcode.treeNodeExercises;
 import chapter04.TreeNode2;
 
 public class TreeNode {
-    int val;
+    public int val;
     public TreeNode left;
     public TreeNode right;
     TreeNode() {}

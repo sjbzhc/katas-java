@@ -28,6 +28,31 @@ public class CoinChangeII {
      * Space: O(mn)
      * */
 
+    Map<String, Integer> map = new HashMap<>();
+    int target;
+    int[] coins;
+    public int coinChange(int[] coins, int amount) {
+        this.coins = coins;
+        this.target = amount;
+        int res = dfs(0, 0);
+        return res == 0 ? -1 : res;
+    }
+
+    private int dfs(int i, int amount) {
+        if (amount == target) return 1;
+
+        if (amount > target) return 0;
+
+        if (i == coins.length) return 0;
+
+        String key = i + "#" + amount;
+
+        if (map.containsKey(key)) return map.get(key);
+
+        map.put(key, dfs(i, amount + coins[i]) + dfs(i + 1, amount));
+        return map.get(key);
+    }
+
     public int changeDp(int amount, int[] coins) {
         int n = coins.length;
         int[][] dp = new int[n + 1][amount + 1];
@@ -52,39 +77,5 @@ public class CoinChangeII {
             }
         }
         return dp[n][amount];
-    }
-    class Pair {
-        int index;
-        int amount;
-
-        public Pair(int index, int amount) {
-            this.index = index;
-            this.amount = amount;
-        }
-    }
-
-    Map<Pair, Integer> map = new HashMap<>();
-    int amount;
-    int[] coins;
-    public int coinChange(int[] coins, int amount) {
-        this.coins = coins;
-        this.amount = amount;
-        int res = dfs(0, 0);
-        return res == 0 ? -1 : res;
-    }
-
-    private int dfs(int index, int currentAmount) {
-        if (currentAmount == amount) return 1;
-
-        if (currentAmount > amount) return 0;
-
-        if (index == coins.length) return 0;
-
-        Pair key = new Pair(index, currentAmount);
-
-        if (map.containsKey(key)) return map.get(key);
-
-        map.put(key, dfs(index, currentAmount + coins[index]) + dfs(index + 1, currentAmount));
-        return map.get(key);
     }
 }

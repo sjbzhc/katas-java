@@ -10,4 +10,11 @@ public class EditDistanceTests {
 
         Assertions.assertThat(ed.minDistance("horse", "ros")).isEqualTo(3);
     }
+
+    @Test
+    public void test_rec() {
+        EditDistance ed = new EditDistance();
+
+        Assertions.assertThat(ed.minDistanceRecursive("horse", "ros")).isEqualTo(3);
+    }
 }

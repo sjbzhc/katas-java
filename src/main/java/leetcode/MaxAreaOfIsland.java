@@ -27,8 +27,17 @@ public class MaxAreaOfIsland {
     }
 
     private int dfs(int row, int col) {
-        if (row >= ROWS || row < 0 || col >= COLS || col < 0 || grid[row][col] == 0) return 0;
         grid[row][col] = 0;
-        return (1 + dfs(row+1, col) + dfs(row - 1, col) + dfs(row, col + 1) + dfs(row, col - 1));
+        int[] rowOffsets = {-1, 0, 1, 0};
+        int[] colOffsets = {0, -1, 0 ,1};
+
+        int ans = 0;
+        for (int d=0; d<4; d++) {
+            int newRow = row + rowOffsets[d];
+            int newCol = col + colOffsets[d];
+            if (newRow >= ROWS || newRow < 0 || newCol >= COLS || newCol < 0 || grid[newRow][newCol] == 0) continue;
+            ans += dfs(newRow, newCol);
+        }
+        return 1 + ans;
     }
 }

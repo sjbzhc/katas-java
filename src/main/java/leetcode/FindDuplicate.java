@@ -10,20 +10,16 @@ public class FindDuplicate {
         int slow = nums[0];
         int fast = nums[0];
 
-        while (true) {
+        do {
             slow = nums[slow];
             fast = nums[nums[fast]];
-
-            if (slow == fast) break;
-        }
+        } while (slow != fast);
 
         int slow2 = nums[0];
 
-        while (true) {
+        while (slow != slow2) {
             slow = nums[slow];
             slow2 = nums[slow2];
-            if (slow == slow2) break;
-
         }
         return slow;
     }

@@ -26,4 +26,11 @@ public class CoinChangeTests {
         int[] coins = {2, 5, 11, 23};
         Assertions.assertThat(cc.coinChangeDP(coins, 23)).isEqualTo(1);
     }
+
+    @Test
+    public void coin_change_recursive() {
+        CoinChange cc = new CoinChange();
+        int[] coins = {1,5,2};
+        Assertions.assertThat(cc.coinChangeRecursive(coins, 11)).isEqualTo(3);
+    }
 }

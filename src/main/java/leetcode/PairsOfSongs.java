@@ -1,5 +1,9 @@
 package leetcode;
 
+/*
+* Time: O(n)
+* Space: O(1)
+* */
 public class PairsOfSongs {
     public int numPairsDivisibleBy60(int[] songs) {
         int[] complements = new int[60];

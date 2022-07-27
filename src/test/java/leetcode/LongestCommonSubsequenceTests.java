@@ -17,4 +17,11 @@ public class LongestCommonSubsequenceTests {
 
         Assertions.assertThat(lc.longestCommonSubsequenceTopDown("abcde", "ace")).isEqualTo(3);
     }
+
+    @Test
+    public void test_top_down_rec() {
+        LongestCommonSubsequence lc = new LongestCommonSubsequence();
+
+        Assertions.assertThat(lc.longestCommonSubsequenceRecursive("abcde", "ace")).isEqualTo(3);
+    }
 }

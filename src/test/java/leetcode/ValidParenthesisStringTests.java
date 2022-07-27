@@ -10,4 +10,11 @@ public class ValidParenthesisStringTests {
 
         Assertions.assertThat(vp.checkValidString("(*)")).isTrue();
     }
+
+    @Test
+    public void test_2() {
+        ValidParenthesisString vp = new ValidParenthesisString();
+
+        Assertions.assertThat(vp.checkValidString("(((*)")).isFalse();
+    }
 }
