@@ -48,6 +48,7 @@ public class CourseSchedule {
                 dfs(neighbor);
             } else if (color.get(neighbor) == GRAY) {
                 isPossible = false;
+                break;
             }
         }
 

@@ -23,6 +23,9 @@ import java.util.*;
 * false. This was, we move the start counter quicker (as we don't have to wait for start to increment all the way up to end).
 *
 * We return the value in the last position of the array.
+*
+* Time: O(n l3)
+* Space: O(n + l)
 * */
 
 public class ConcatenatedWords {
@@ -43,17 +46,17 @@ public class ConcatenatedWords {
 
     private boolean canForm(String word, Set<String> subWords) {
         if (subWords.isEmpty()) return false;
-        boolean[] characterChecks = new boolean[word.length() + 1];
-        characterChecks[0] = true;
+        boolean[] dp = new boolean[word.length() + 1];
+        dp[0] = true;
         for (int end = 1; end <= word.length(); end++) {
             for (int start = 0; start < end; start++) {
-                if (!characterChecks[start]) continue;
+                if (!dp[start]) continue;
                 if (subWords.contains(word.substring(start, end))) {
-                    characterChecks[end] = true;
+                    dp[end] = true;
                     break;
                 }
             }
         }
-        return characterChecks[word.length()];
+        return dp[word.length()];
     }
 }

@@ -53,17 +53,14 @@ public class DistinctSubsequences {
 
         if (memo.containsKey(key)) return memo.get(key);
 
-
-        // We do this recursion either way: if we don't find a match or if we found a match, but want to test
-        // if a second match for the same char in t will come later in s
-        int ans = recurse(i + 1, j);
-
         // If the characters match, then we make another
         // recursion call and add the result to "ans"
         if (s.charAt(i) == t.charAt(j)) {
-            ans += recurse(i + 1, j + 1);
+            int ans = recurse(i + 1, j + 1) + recurse(i + 1, j);
+            memo.put(key, ans);
+            return ans;
         }
-
+        int ans = recurse(i + 1, j);
         memo.put(key, ans);
         return ans;
     }
@@ -80,10 +77,11 @@ public class DistinctSubsequences {
 
         for (int i=m-1; i>=0; i--) {
             for (int j=n-1; j>=0; j--) {
-                dp[i][j] = dp[i+1][j];
                 if (s.charAt(i) == t.charAt(j)) {
                     // we move both forwards as it's a match and we pretend there is no match
-                    dp[i][j] += dp[i+1][j+1];
+                    dp[i][j] = dp[i+1][j+1] + dp[i+1][j];
+                } else {
+                    dp[i][j] = dp[i+1][j];
                 }
             }
         }

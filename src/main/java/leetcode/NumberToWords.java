@@ -97,22 +97,37 @@ public class NumberToWords {
     }
 
     public String numberToWords(int num) {
+        if (num == 0)
+            return "Zero";
 
+        int billion = num / 1000000000;
+        int million = (num - billion * 1000000000) / 1000000;
+        int thousand = (num - billion * 1000000000 - million * 1000000) / 1000;
+        int rest = num - billion * 1000000000 - million * 1000000 - thousand * 1000;
 
-        int hundreds = num/100;
-
-        if (hundreds != 0) {
-            return three(num);
+        String result = "";
+        if (billion != 0)
+            result = upToThreeDigits(billion) + " Billion";
+        if (million != 0) {
+            if (! result.isEmpty()) result += " ";
+            result += upToThreeDigits(million) + " Million";
         }
-        return "";
+        if (thousand != 0) {
+            if (! result.isEmpty()) result += " ";
+            result += upToThreeDigits(thousand) + " Thousand";
+        }
+        if (rest != 0) {
+            if (! result.isEmpty()) result += " ";
+            result += upToThreeDigits(rest);
+        }
+        return result;
     }
 
-    private String three(int num) {
+    private String upToThreeDigits(int num) {
         String result = "";
         int hundreds = num/100;
         int rest = num%100;
 
-        if (!result.isEmpty()) result += " ";
         result += one(hundreds);
 
         if (hundreds > 0) {
@@ -121,7 +136,7 @@ public class NumberToWords {
         }
 
         if (!result.isEmpty()) result += " ";
-        if (rest/20 > 0) {
+        if (rest >= 10) {
             result += two(num%100);
         } else {
             result += one(num%100);

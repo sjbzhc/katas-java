@@ -1,49 +1,59 @@
 package leetcode;
 
 /*
-* Time: O(n3)
+* Time: O(n)
 * Space: O(n)
 * */
 
 public class SubstringWithLargestVariance {
     public int largestVariance(String s) {
-        int [] freq = new int[26];
-
+        int ans = 0;
+        int[] freq = new int[26];
         for(int i = 0 ; i < s.length() ; i++) {
             freq[s.charAt(i) - 'a']++;
         }
 
-        int maxVariance = 0;
-        for (int a = 0; a < 26; a++) {
-            for (int b = 0; b < 26; b++) {
-                int remainingA = freq[a];
-                int remainingB = freq[b];
-                if(a == b || remainingA == 0 || remainingB == 0) continue;
+        for (int rev=1; rev<=2; rev++) {
+            for (int a = 0; a < 26; a++) {
+                for (int b = 0; b < 26; b++) {
+                    if (a == b || freq[a] == 0 || freq[b] == 0) continue;
+                    int cntA = 0;
+                    int cntB = 0;
 
-                // run Kadane's on each possible character pairs (A & B)
-                int currAFreq = 0;
-                int currBFreq = 0;
+                    for (char c : s.toCharArray()) {
+                        int charNum = c - 'a';
+                        if (a == charNum) cntA++;
+                        if (b == charNum) cntB++;
 
-                for (int i = 0 ; i < s.length(); i++) {
-                    int c =  s.charAt(i) - 'a';
-
-                    if (c == a) {
-                        currAFreq++;
-                        remainingA--;
-                    }
-                    if (c == b) currBFreq++;
-
-                    if (currAFreq > 0) maxVariance = Math.max(maxVariance, currBFreq - currAFreq);
-
-                    // Since we calculate max as freqB - freqA, no need to continue if already negative, so we reset
-                    if (currAFreq > currBFreq &&  remainingA >= 1) {
-                        currAFreq = 0;
-                        currBFreq = 0;
+                        // In the complementary loop where a anb b switch places, cntA will be larger, so we are
+                        // not interested in this case for now
+                        if (cntA < cntB) {
+                            cntA = 0;
+                            cntB = 0;
+                        }
+                        if (cntA > 0 && cntB > 0) {
+                            ans = Math.max(ans, cntA - cntB);
+                        }
                     }
                 }
             }
+            // handle abbbb
+            s = reverse(s);
         }
+    return ans;
+    }
 
-        return maxVariance;
+    private String reverse(String s) {
+        int l=0;
+        int r=s.length() - 1;
+        char[] charArr = s.toCharArray();
+        while (l<r) {
+            char tmp = charArr[l];
+            charArr[l] = charArr[r];
+            charArr[r] = tmp;
+            l++;
+            r--;
+        }
+        return String.valueOf(charArr);
     }
 }

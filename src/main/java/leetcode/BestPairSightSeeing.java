@@ -14,7 +14,7 @@ public class BestPairSightSeeing {
         dp[0] = values[0] + 0;
         int res = Integer.MIN_VALUE;
 
-        // corresponds to updating with values[i] + i
+        // corresponds to updating with values[i] + i. Prepare value for next iteration
         for (int i=1; i<dp.length; i++) {
             dp[i] = Math.max(dp[i-1], values[i] + i);
         }
