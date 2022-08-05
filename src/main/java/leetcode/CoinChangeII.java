@@ -34,8 +34,7 @@ public class CoinChangeII {
     public int coinChange(int[] coins, int amount) {
         this.coins = coins;
         this.target = amount;
-        int res = dfs(0, 0);
-        return res == 0 ? -1 : res;
+        return dfs(0, 0);
     }
 
     private int dfs(int i, int amount) {

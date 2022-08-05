@@ -5,18 +5,21 @@ package leetcode;
 * Space: O(n)
 * */
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class SubstringWithLargestVariance {
     public int largestVariance(String s) {
         int ans = 0;
-        int[] freq = new int[26];
-        for(int i = 0 ; i < s.length() ; i++) {
-            freq[s.charAt(i) - 'a']++;
+        Set<Integer> set = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            set.add(c - 'a');
         }
 
         for (int rev=1; rev<=2; rev++) {
             for (int a = 0; a < 26; a++) {
                 for (int b = 0; b < 26; b++) {
-                    if (a == b || freq[a] == 0 || freq[b] == 0) continue;
+                    if (a == b || !set.contains(a) || !set.contains(b)) continue;
                     int cntA = 0;
                     int cntB = 0;
 
@@ -44,16 +47,8 @@ public class SubstringWithLargestVariance {
     }
 
     private String reverse(String s) {
-        int l=0;
-        int r=s.length() - 1;
-        char[] charArr = s.toCharArray();
-        while (l<r) {
-            char tmp = charArr[l];
-            charArr[l] = charArr[r];
-            charArr[r] = tmp;
-            l++;
-            r--;
-        }
-        return String.valueOf(charArr);
+        StringBuilder sb = new StringBuilder(s);
+        sb.reverse();
+        return sb.toString();
     }
 }

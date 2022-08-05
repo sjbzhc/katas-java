@@ -20,17 +20,15 @@ public class TicTacToe {
         char playersMark = player == 1 ? 'X' : 'O';
         board[row][col] = playersMark;
         checkWinner(row, col);
-        if (winner != 0) {
-            return winner;
-        }
+        if (winner != 0) return winner;
         return 0;
     }
 
     private void checkWinner(int row, int col) {
         boolean rowEqual = true;
         boolean colEqual = true;
-        boolean diagonalLeft = true;
-        boolean diagonalRight = true;
+        boolean negDiag = true;
+        boolean posDiag = true;
 
         char placed = board[row][col];
         for (int i=0; i<size;i++) {
@@ -49,19 +47,19 @@ public class TicTacToe {
 
         for (int i=0; i<size;i++) {
             if (board[i][i] != placed) {
-                diagonalLeft = false;
+                negDiag = false;
                 break;
             }
         }
 
         for (int i=0; i<size;i++) {
             if (board[i][size - i - 1] != placed) {
-                diagonalRight = false;
+                posDiag = false;
                 break;
             }
         }
 
-        if (rowEqual || colEqual || diagonalLeft || diagonalRight) {
+        if (rowEqual || colEqual || negDiag || posDiag) {
             if (placed == 'X') {
                 winner = 1;
             } else {

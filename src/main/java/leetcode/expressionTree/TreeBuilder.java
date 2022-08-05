@@ -39,44 +39,23 @@ public class TreeBuilder {
         }
     }
 
-//    public Node buildTree(String[] postfix) {
-//        Deque<ExpressionNode> dq = new ArrayDeque<>();
-//
-//        for (String s : postfix) {
-//            if (operands.contains(s)) {
-//                ExpressionNode right = dq.removeFirst();
-//                ExpressionNode left = dq.removeFirst();
-//                ExpressionNode newNode = new ExpressionNode(s);
-//                newNode.left = left;
-//                newNode.right = right;
-//                dq.addFirst(newNode);
-//            } else {
-//                Integer value = Integer.valueOf(s);
-//                ExpressionNode newNode = new ExpressionNode(value);
-//                dq.addFirst(newNode);
-//            }
-//        }
-//        return dq.remove();
-//    }
-
     public Node buildTree(String[] postfix) {
-        Stack<ExpressionNode> dq = new Stack<>();
+        Stack<ExpressionNode> stack = new Stack<>();
 
         for (String s : postfix) {
             if (operands.contains(s)) {
-                ExpressionNode right = dq.pop();
-                ExpressionNode left = dq.pop();
+                ExpressionNode right = stack.pop();
+                ExpressionNode left = stack.pop();
                 ExpressionNode newNode = new ExpressionNode(s);
                 newNode.left = left;
                 newNode.right = right;
-                dq.add(newNode);
+                stack.add(newNode);
             } else {
                 Integer value = Integer.valueOf(s);
                 ExpressionNode newNode = new ExpressionNode(value);
-                dq.push(newNode);
+                stack.push(newNode);
             }
         }
-        return dq.pop();
+        return stack.pop();
     }
-
 }

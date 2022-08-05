@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.Objects;
-import java.util.Set;
 import java.util.Stack;
 
 class ExpressionNode {
@@ -50,6 +49,7 @@ public class BuildBinaryExpressionTreeFromInfixExpression {
             }
             ops.pop();
         } else {
+            // create tree from operands, prioritizing */ vs +-
             while (!ops.isEmpty() && compare(ops.peek(), c)) {
                 nodes.push(buildNode(ops.pop(), nodes.pop(), nodes.pop()));
             }

@@ -31,7 +31,7 @@ public class CourseSchedule {
             }
         }
 
-        if (!isPossible) return new int[]{0};
+        if (!isPossible) return new int[]{};
         Collections.reverse(topologicalOrder);
         return topologicalOrder.stream().mapToInt(Integer::intValue).toArray();
     }

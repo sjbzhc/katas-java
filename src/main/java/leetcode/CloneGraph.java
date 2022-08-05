@@ -22,6 +22,10 @@ class Node {
     }
 }
 
+/*
+* Time: O(V + E)
+* Space: O(V)
+* */
 public class CloneGraph {
     Map<Node, Node> oldToNew = new HashMap<>();
     public Node cloneGraph(Node node) {

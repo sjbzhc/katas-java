@@ -11,4 +11,12 @@ public class AlienDictionaryTests {
 
         Assertions.assertThat(ad.alienOrder(words)).isEqualTo("wertf");
     }
+
+    @Test
+    public void test_2() {
+        AlienDictionary ad = new AlienDictionary();
+        String[] words = {"z","x","a","zb","zx"};
+
+        Assertions.assertThat(ad.alienOrder(words)).isEqualTo("");
+    }
 }

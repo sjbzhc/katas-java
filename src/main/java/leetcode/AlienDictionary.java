@@ -12,16 +12,11 @@ import java.util.Map;
 
 public class AlienDictionary {
     private Map<Character, List<Character>> adjMap = new HashMap<>();
-    private Map<Character, Boolean> visited = new HashMap<>();
+    private Map<Character, Integer> color = new HashMap<>();
     private StringBuilder output = new StringBuilder();
+    boolean isPossible = true;
 
     public String alienOrder(String[] words) {
-
-        for (String word : words) {
-            for (char c : word.toCharArray()) {
-                adjMap.putIfAbsent(c, new ArrayList<>());
-            }
-        }
 
         // For each pair of words, find the first character that doesn't match.
         // Since the list is sorted, the character of word1 comes before the char in word2
@@ -34,32 +29,43 @@ public class AlienDictionary {
             }
             // The adjancency is inverted, as we are building the inverted topological sort
             for (int j = 0; j < Math.min(word1.length(), word2.length()); j++) {
-                if (word1.charAt(j) != word2.charAt(j)) {
-                    adjMap.get(word2.charAt(j)).add(word1.charAt(j));
+                char c1 = word1.charAt(j);
+                char c2 = word2.charAt(j);
+                if (c1 != c2) {
+                    adjMap.putIfAbsent(c2, new ArrayList<>());
+                    adjMap.get(c2).add(c2);
                     break;
                 }
             }
         }
 
+        for (Character c : adjMap.keySet()) {
+            color.put(c, 0);
+        }
+
         // Do DFS
         for (Character c : adjMap.keySet()) {
-            dfs(c);
+            if (color.get(c) == 0) dfs(c);
         }
+
+        if (!isPossible) return "";
 
         return output.toString();
     }
 
     private boolean dfs(Character c) {
-        // if not in map it means it was never visited before
-        if (visited.containsKey(c)) return visited.get(c);
+        // there is a cycle
+        if (!isPossible) return false;
 
-        visited.put(c, true);
+        color.put(c, 1);
         for (Character next : adjMap.get(c)) {
-            // if result is true, it means we have a cycle, so we can return immediately
-            if (dfs(next)) return true;
+            if (color.get(next) == 1) {
+                isPossible = false;
+            }
+            if (color.get(next) == 0) dfs(next);
         }
-        visited.put(c, false);
+        color.put(c, 2);
         output.append(c);
-        return false;
+        return true;
     }
 }

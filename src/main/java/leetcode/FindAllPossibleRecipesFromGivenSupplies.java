@@ -19,7 +19,7 @@ public class FindAllPossibleRecipesFromGivenSupplies {
         for (String s : supplies) suppliesSet.add(s);
 
         for(String recipe: recipes) {
-            if (!visited.contains(recipe)) dfs(recipe);
+            dfs(recipe);
         }
         return new ArrayList<>(result);
     }

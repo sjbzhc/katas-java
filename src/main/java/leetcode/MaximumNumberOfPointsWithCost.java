@@ -35,19 +35,19 @@ public class MaximumNumberOfPointsWithCost {
         long[] left = new long[COLS];
         long[] right = new long[COLS];
 
-        for (int i =1; i<ROWS; i++) {
-            for (int j=0; j<COLS; j++) {
-                if (j == 0) left[j] = dp[j];
-                else left[j] = Math.max(left[j-1] - 1, dp[j]);
+        for (int r =1; r<ROWS; r++) {
+            for (int c=0; c<COLS; c++) {
+                if (c == 0) left[c] = dp[c];
+                else left[c] = Math.max(left[c-1] - 1, dp[c]);
             }
 
-            for (int j = COLS-1; j>=0; j--) {
-                if (j == COLS - 1) right[j] = dp[j];
-                else right[j] = Math.max(right[j+1] - 1, dp[j]);
+            for (int c = COLS-1; c>=0; c--) {
+                if (c == COLS - 1) right[c] = dp[c];
+                else right[c] = Math.max(right[c+1] - 1, dp[c]);
             }
 
-            for (int j=0; j<COLS; j++) {
-                dp[j] = points[i][j] + Math.max(left[j], right[j]);
+            for (int c=0; c<COLS; c++) {
+                dp[c] = points[r][c] + Math.max(left[c], right[c]);
             }
         }
 

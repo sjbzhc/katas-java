@@ -42,11 +42,10 @@ public class BoundaryBinaryTree {
     }
 
     public void addLeaves(TreeNode root) {
-        if (isLeaf(root)) {
-            res.add(root.val);
-        } else {
-            if (root.left != null) addLeaves(root.left);
-            if (root.right != null) addLeaves(root.right);
-        }
+        if (isLeaf(root)) res.add(root.val);
+
+        if (root.left != null) addLeaves(root.left);
+        if (root.right != null) addLeaves(root.right);
+
     }
 }
