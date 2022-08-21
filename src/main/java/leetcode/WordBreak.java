@@ -71,24 +71,24 @@ public class WordBreak {
     * words to fill all the substrings of the word.
     * */
     public boolean wordBreakBfs(String s, List<String> wordDict) {
-        Set<String> wordDictSet = new HashSet<>(wordDict);
+        Set<String> words = new HashSet<>(wordDict);
         Queue<Integer> queue = new LinkedList<>();
-        boolean[] visited = new boolean[s.length()];
+        Set<Integer> visited = new HashSet<>();
         queue.add(0);
 
         while (!queue.isEmpty()) {
             int start = queue.poll();
-            if (visited[start]) continue;
+            if (visited.contains(start)) continue;
 
             for (int end = start + 1; end <= s.length(); end++) {
-                if (wordDictSet.contains(s.substring(start, end))) {
+                if (words.contains(s.substring(start, end))) {
                     queue.add(end);
                     if (end  == s.length()) {
                         return true;
                     }
                 }
             }
-            visited[start] = true;
+            visited.add(start);
         }
         return false;
     }

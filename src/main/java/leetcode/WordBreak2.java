@@ -46,7 +46,6 @@ public class WordBreak2 {
     }
 
     public boolean wordBreakBfs(String word, List<String> dict) {
-        this.dict = dict;
         Queue<Integer> queue = new LinkedList<>();
         boolean[] visited = new boolean[word.length()];
 
@@ -69,7 +68,6 @@ public class WordBreak2 {
     }
 
     public boolean wordBreakDp(String word, List<String> dict) {
-        this.dict = dict;
         boolean[] dp = new boolean[word.length() + 1];
         dp[0] = true;
 
