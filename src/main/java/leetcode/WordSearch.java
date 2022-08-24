@@ -42,17 +42,8 @@ public class WordSearch {
     }
 
     private boolean backtrack(int row, int col, String word, int index) {
-        if (index == word.length()) {
-            return true;
-        }
-
-        if (row < 0 || row >= ROWS || col < 0 || col >= COLS) {
-            return false;
-        }
-
-        if (board[row][col] != word.charAt(index)) {
-            return false;
-        }
+        if (index == word.length()) return true;
+        if (board[row][col] != word.charAt(index)) return false;
 
         board[row][col] = '#';
 
@@ -66,7 +57,12 @@ public class WordSearch {
 
         boolean letterFound = false;
         for (int d = 0; d < 4; d++) {
-            letterFound = backtrack(row + rowOffsets[d], col + colOffsets[d], word, index + 1);
+
+            int newRow = row + rowOffsets[d];
+            int newCol = col + colOffsets[d];
+
+            if (newRow < 0 || newRow >= ROWS || newCol < 0 || newCol >= COLS) continue;
+            letterFound = backtrack(newRow, newCol, word, index + 1);
             if (letterFound) {
                 break;
             }

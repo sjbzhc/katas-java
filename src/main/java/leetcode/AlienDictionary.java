@@ -11,12 +11,21 @@ import java.util.Map;
 * */
 
 public class AlienDictionary {
+    int WHITE = 0;
+    int GREY = 1;
+    int BLACK = 2;
     private Map<Character, List<Character>> adjMap = new HashMap<>();
     private Map<Character, Integer> color = new HashMap<>();
     private StringBuilder output = new StringBuilder();
     boolean isPossible = true;
 
     public String alienOrder(String[] words) {
+
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                adjMap.putIfAbsent(c, new ArrayList<>());
+            }
+        }
 
         // For each pair of words, find the first character that doesn't match.
         // Since the list is sorted, the character of word1 comes before the char in word2
@@ -33,19 +42,19 @@ public class AlienDictionary {
                 char c2 = word2.charAt(j);
                 if (c1 != c2) {
                     adjMap.putIfAbsent(c2, new ArrayList<>());
-                    adjMap.get(c2).add(c2);
+                    adjMap.get(c2).add(c1);
                     break;
                 }
             }
         }
 
         for (Character c : adjMap.keySet()) {
-            color.put(c, 0);
+            color.put(c, WHITE);
         }
 
         // Do DFS
         for (Character c : adjMap.keySet()) {
-            if (color.get(c) == 0) dfs(c);
+            if (color.get(c) == WHITE) dfs(c);
         }
 
         if (!isPossible) return "";
@@ -56,15 +65,14 @@ public class AlienDictionary {
     private boolean dfs(Character c) {
         // there is a cycle
         if (!isPossible) return false;
+        color.put(c, GREY);
 
-        color.put(c, 1);
         for (Character next : adjMap.get(c)) {
-            if (color.get(next) == 1) {
-                isPossible = false;
-            }
-            if (color.get(next) == 0) dfs(next);
+            if (color.get(next) == GREY) isPossible = false;
+            if (color.get(next) == WHITE) dfs(next);
         }
-        color.put(c, 2);
+
+        color.put(c, BLACK);
         output.append(c);
         return true;
     }

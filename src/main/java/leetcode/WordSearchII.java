@@ -14,6 +14,7 @@ public class WordSearchII {
     class TrieNode {
         Map<Character, TrieNode> children = new HashMap<>();
         boolean end = false;
+        String word = "";
     }
 
     TrieNode root = new TrieNode();
@@ -25,6 +26,7 @@ public class WordSearchII {
             node = node.children.get(c);
         }
         node.end = true;
+        node.word = w;
     }
     int ROWS;
     int COLS;
@@ -40,19 +42,19 @@ public class WordSearchII {
 
         for (int r=0; r<ROWS; r++) {
             for (int c=0; c<COLS; c++) {
-                if (root.children.containsKey(board[r][c])) backtrack(r, c, "", root);
+                if (root.children.containsKey(board[r][c])) backtrack(r, c, root);
             }
         }
         return res;
     }
 
-    private void backtrack(int r, int c, String word, TrieNode node) {
-        if (!node.children.containsKey(board[r][c])) return;
+    private void backtrack(int r, int c, TrieNode node) {
+        char ch = board[r][c];
+        if (!node.children.containsKey(ch)) return;
         visited[r][c] = true;
 
-        node = node.children.get(board[r][c]);
-        word += board[r][c];
-        if (node.end && !res.contains(word)) res.add(word);
+        node = node.children.get(ch);
+        if (node.end && !res.contains(node.word)) res.add(node.word);
 
         int[] rowOffsets = {-1, 0, 1, 0};
         int[] colOffsets = {0, -1, 0 ,1};
@@ -61,7 +63,7 @@ public class WordSearchII {
             int newRow = r + rowOffsets[d];
             int newCol = c + colOffsets[d];
             if (newRow >= ROWS || newRow < 0 || newCol >= COLS || newCol < 0 || visited[newRow][newCol]) continue;
-            backtrack(newRow, newCol, word, node);
+            backtrack(newRow, newCol, node);
         }
 
         visited[r][c] = false;

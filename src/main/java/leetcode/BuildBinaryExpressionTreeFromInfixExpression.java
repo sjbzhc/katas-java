@@ -38,7 +38,7 @@ public class BuildBinaryExpressionTreeFromInfixExpression {
     Stack<ExpressionNode> nodes = new Stack<>();
     Stack<Character> ops = new Stack<>();
 
-    for (char c : s.toCharArray())
+    for (char c : s.toCharArray()) {
         if (Character.isDigit(c)) {
             nodes.push(new ExpressionNode(c));
         } else if (c == '(') {
@@ -55,10 +55,11 @@ public class BuildBinaryExpressionTreeFromInfixExpression {
             }
             ops.push(c);
         }
+    }
 
-    while (!ops.isEmpty())
+    while (!ops.isEmpty()) {
         nodes.push(buildNode(ops.pop(), nodes.pop(), nodes.pop()));
-
+    }
     return nodes.peek();
 }
 

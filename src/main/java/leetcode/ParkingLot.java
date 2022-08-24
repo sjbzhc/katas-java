@@ -58,7 +58,7 @@ public class ParkingLot {
 
     public class Params {
         ParkingSpotType type;
-        ParkingSpotSize size;
+        CarSize size;
     }
 
     public class ParkingTypeFilter implements IFilter {
@@ -73,7 +73,7 @@ public class ParkingLot {
         @Override
         public boolean isValid(ParkingSpot parkingSpot, Params params) {
             if (params.size == null) return true;
-            return params.size == parkingSpot.size;
+            return carSizeToParkingSpotSize.get(params.size).contains(parkingSpot.size);
         }
     }
 
@@ -102,8 +102,6 @@ public class ParkingLot {
     }
 
     List<ParkingSpot> parkingSpots;
-    Map<ParkingSpotType, List<ParkingSpot>> parkingSpotsByType = new HashMap<>();
-    Map<ParkingSpotSize, List<ParkingSpot>> parkingSpotsBySize = new HashMap<>();
     Filter filter = new Filter();
 
     public ParkingLot(List<ParkingSpot> parkingSpots) {
@@ -116,9 +114,8 @@ public class ParkingLot {
     );
 
     public ParkingSpot assignSpot(CarSize carSize, ParkingSpotType parkingSpotType) {
-        for (ParkingSpotSize parkingSpotSize : carSizeToParkingSpotSize.get(carSize)) {
             Params params = new Params();
-            params.size = parkingSpotSize;
+            params.size = carSize;
             params.type = parkingSpotType;
 
             for (ParkingSpot ps : parkingSpots) {
@@ -127,7 +124,6 @@ public class ParkingLot {
                     return ps;
                 }
             }
-        }
         throw new Error("No spots free for this type of vehicle");
     }
 

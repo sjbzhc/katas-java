@@ -8,7 +8,7 @@ import java.util.List;
 public class PermuteTests {
     @Test
     public void permute() {
-        Permute permute = new Permute();
+        Permutation permute = new Permutation();
         int[] nums = {1,2,3};
 
         List<List<Integer>> permute1 = permute.permute(nums);

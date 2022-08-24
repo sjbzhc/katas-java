@@ -1,6 +1,17 @@
 package leetcode;
 
 /*
+* The multiplications are offset:
+*
+* For:
+* [1 2 3 4]
+*
+* We have:
+* l = [1  1  2 4]
+* r = [24 12 4 1]
+*
+* By offsetting l i + 1 to the right, we ensure the element at i is not included in the final multiplication
+*
 * Time: O(n)
 * Space: O(n)
 * */

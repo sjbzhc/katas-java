@@ -26,16 +26,16 @@ public class HandOfStraights {
             int first = pq.peek();
 
             // Since we wnt consecutive numbers, i starting from first to groupSize should always be present
-            for (int i=first; i<first + groupSize; i++) {
-                if (!count.containsKey(i)) return false;
+            for (int nextCard=first; nextCard<first + groupSize; nextCard++) {
+                if (!count.containsKey(nextCard)) return false;
 
-                 count.put(i, count.get(i) - 1);
+                 count.put(nextCard, count.get(nextCard) - 1);
 
                  // if the count is 0 we need to pop it from pq
                 // If the value we are about to pop is not the top of the heap return false, as we have a smaller number
                 // and we should be building the heap with increasing values from the pq
-                if (count.get(i) == 0) {
-                    if (i != pq.peek()) return false;
+                if (count.get(nextCard) == 0) {
+                    if (nextCard != pq.peek()) return false;
                     pq.poll();
                 }
             }

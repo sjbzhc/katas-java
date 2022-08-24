@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /*
 * For each frequency, we maintain a LinkedList. This enables O(1) add and remove
@@ -13,56 +12,68 @@ import java.util.Map;
 * minFrequency is reset to 0 when one element is evicted from the cache
 * */
 
-public class LFUCache {
+class LFUCache {
 
-    class Node {
-        public Node prev;
-        public Node next;
-        public int key;
-        public int value;
-        public int frequency;
-
-        public Node(int key, int value) {
+    private class Node{
+        int key;
+        int value;
+        int frequency;
+        Node prev;
+        Node next;
+        Node(int key, int value){
             this.key = key;
             this.value = value;
-            frequency = 1;
         }
     }
 
-    class NodeLinkedList {
-        Node head;
-        Node tail;
+    private class NodeDLinkedList {
+
+        Node head, tail;
         int length;
 
-        public NodeLinkedList() {
-            this.head = new Node(0, 0);
-            this.tail =  new Node(0, 0);
+        public NodeDLinkedList() {
+            head = new Node(-1, -1);
+            tail = new Node(-1, -1);
             head.next = tail;
             tail.prev = head;
         }
 
         void add(Node node) {
-            node.next = head.next;
-            node.prev = head;
 
-            head.next = node;
-            head.next.prev = node;
+            node.prev = null;
+            node.next = null;
+
+            if (head == null) {
+                head = node;
+                tail = node;
+            } else {
+                node.next = head;
+                head.prev = node;
+                head = node;
+            }
+
             length++;
         }
 
+        //Remove a node
         void remove(Node node) {
-            Node prev = node.prev;
-            Node next = node.next;
 
-            prev.next = next;
-            next.prev = prev;
-            length--;
+            if (node == head) {
+                if (node == tail) tail = null;
+                head = head.next;
+            } else {
+                node.prev.next = node.next;
+                if (node == tail) tail = node.prev;
+                else node.next.prev = node.prev;
+            }
+
         }
 
-        Node removeLastNode() {
+        Node removeLastNode(){
+
             Node tailNode = tail;
 
-            if (tailNode != null) {
+            if(tailNode != null) {
                 remove(tailNode);
             }
             return tailNode;
@@ -70,65 +81,66 @@ public class LFUCache {
     }
 
     int capacity;
-    Map<Integer, Node> cache;
-    Map<Integer, NodeLinkedList> freqToLinkedList;
-    int minimumFrequency = 1;
+    HashMap<Integer, Node> cache = new HashMap<>();
+    HashMap<Integer, NodeDLinkedList> freqToList = new HashMap<>();
+    int minFreq = 1;
 
     public LFUCache(int capacity) {
         this.capacity = capacity;
-        cache = new HashMap<>();
-        freqToLinkedList = new HashMap<>();
     }
 
     public int get(int key) {
         Node node = cache.get(key);
-        if (node != null) {
+        if(node != null) {
             incrementFrequency(node);
             return node.value;
-        } else {
+        }
+        else{
             return -1;
         }
     }
 
     public void put(int key, int value) {
+
         if (capacity <= 0) return;
 
         if (cache.containsKey(key)) {
             Node node = cache.get(key);
             node.value = value;
             incrementFrequency(node);
-            cache.put(key, node);
         } else {
             Node node = new Node(key, value);
 
             if (cache.size() == capacity) {
-                Node removedLastNode = freqToLinkedList.get(minimumFrequency).removeLastNode();
+                Node removedLastNode = freqToList.get(minFreq).removeLastNode();
                 cache.remove(removedLastNode.key);
             }
 
             incrementFrequency(node);
             cache.put(key, node);
-            minimumFrequency = 1;
+
+            minFreq = 1;
         }
+
     }
 
-    private void incrementFrequency(Node node) {
-        int currentFreq = node.frequency;
 
-        if (freqToLinkedList.containsKey(currentFreq)) {
-            NodeLinkedList currentList = freqToLinkedList.get(currentFreq);
-            currentList.remove(node);
-            // Min freq is updated if currFreq is the min and the list is empty.
-            // Otherwise, another list could exist with the minFreq value
-            if (currentFreq == minimumFrequency && currentList.length == 0) {
-                minimumFrequency++;
+    private void incrementFrequency(Node node){
+
+        int oldFrequency = node.frequency;
+
+        if (freqToList.containsKey(oldFrequency)) {
+            NodeDLinkedList oldNodeDLinkedList = freqToList.get(oldFrequency);
+            oldNodeDLinkedList.remove(node);
+            if (node.frequency == minFreq && oldNodeDLinkedList.length == 0) {
+                minFreq++;
             }
         }
 
-        int newFrequency = currentFreq + 1;
+        int newFrequency = oldFrequency + 1;
         node.frequency = newFrequency;
-        NodeLinkedList newList = freqToLinkedList.getOrDefault(newFrequency, new NodeLinkedList());
-        newList.add(node);
-        freqToLinkedList.put(newFrequency, newList);
+        NodeDLinkedList newNodeDLinkedList = freqToList.getOrDefault(newFrequency, new NodeDLinkedList());
+        newNodeDLinkedList.add(node);
+        freqToList.put(newFrequency, newNodeDLinkedList);
     }
 }

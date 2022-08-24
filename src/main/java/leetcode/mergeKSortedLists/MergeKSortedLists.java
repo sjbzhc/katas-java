@@ -11,7 +11,6 @@ import java.util.PriorityQueue;
 
 public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) return new ListNode();
         ListNode head = null;
         ListNode pointer = null;
 

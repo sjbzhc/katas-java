@@ -50,11 +50,8 @@ public class BinaryTreeZigzag {
             boolean leftToRight = false;
             while (size > 0) {
                 TreeNode current = queue.poll();
-                if (leftToRight) {
-                    list.addFirst(current.val);
-                } else {
-                    list.addLast(current.val);
-                }
+                if (leftToRight) list.addFirst(current.val);
+                else list.addLast(current.val);
                 if (current.left != null) queue.add(current.left);
                 if (current.right != null) queue.add(current.right);
                 size--;

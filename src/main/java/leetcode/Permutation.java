@@ -7,7 +7,7 @@ import java.util.List;
 * Time: O(n!)
 * Space: O(n!)
 * */
-public class Permute {
+public class Permutation {
     List<List<Integer>> res = new ArrayList<>();
     int[] nums;
     public List<List<Integer>> permute(int[] nums) {
@@ -22,6 +22,9 @@ public class Permute {
             return;
         }
 
+        // We start from 0 for each new call to backtrack. That guarantees that for example, for [1,2,3]
+        // when we start the permutation with 2, we can create [2,1,3]
+        // since we don't have duplicates, it's easy to know if adding an element is possible
         for (int i=0; i<nums.length; i++) {
             if (temp.contains(nums[i])) continue;
 
