@@ -1,79 +1,88 @@
 package leetcode;
 
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
+
+/*
+* Solved using A*
+*
+* Time: O(nk log nk) worst case: we visit all n cells, and each cell is visited k times for different elimination vals
+* Space: O(nk)
+* */
 
 public class ShortestPathInGridWithObstacle {
 
-    class StepState {
-        public int steps, row, col, k;
+    class State {
+        public int estimation, steps, row, col, k;
+        private int[] target;
 
-        public StepState(int steps, int row, int col, int k) {
+        public State(int steps, int row, int col, int k, int[] target) {
             this.steps = steps;
             this.row = row;
             this.col = col;
             this.k = k;
+
+            this.target = target;
+            int manhattanDistance = target[0] - row + target[1] - col;
+            this.estimation = manhattanDistance + steps;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            State stepState = (State) o;
+            return estimation == stepState.estimation && steps == stepState.steps && row == stepState.row &&
+                    col == stepState.col && k == stepState.k && Arrays.equals(target, stepState.target);
         }
 
         @Override
         public int hashCode() {
-            return (row + 1) * (col + 1) * k;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (!(other instanceof StepState)) {
-                return false;
-            }
-            StepState newState = (StepState) other;
-            return (row == newState.row) && (col == newState.col) && (k == newState.k);
+            int result = Objects.hash(estimation, steps, row, col, k);
+            result = 31 * result + Arrays.hashCode(target);
+            return result;
         }
     }
 
     public int shortestPath(int[][] grid, int k) {
-        int ROWS = grid.length;
-        int COLS = grid[0].length;
+        int rows = grid.length, cols = grid[0].length;
+        int[] target = {rows - 1, cols - 1};
 
-        // if we have sufficient quotas to eliminate the obstacles in the worst case,
-        // then the shortest distance is the Manhattan distance.
-        if (k >= ROWS + COLS - 2) return ROWS + COLS - 2;
+        PriorityQueue<State> queue = new PriorityQueue<>((a, b) -> a.estimation - b.estimation);
+        HashSet<State> seen = new HashSet<>();
 
-        LinkedList<StepState> queue = new LinkedList<>();
-        Set<StepState> seen = new HashSet<>();
-
-        // (steps, row, col, remaining quota to eliminate obstacles)
-        StepState start = new StepState(0, 0, 0, k);
-        queue.addLast(start);
+        State start = new State(0, 0, 0, k, target);
+        queue.offer(start);
         seen.add(start);
 
         while (!queue.isEmpty()) {
-            StepState curr = queue.pollFirst();
+            State curr = queue.poll();
+            int steps = curr.steps;
             int row = curr.row;
             int col = curr.col;
-            int steps = curr.steps;
+            int estimation = curr.estimation;
+            int elimination = curr.k;
 
-            // we reach the target here
-            if (row == ROWS - 1 && col == COLS - 1) return curr.steps;
+            // We have enough k to go through a path with obstacles only
+            int remainMinDistance = estimation - steps;
+            if (remainMinDistance <= elimination) return estimation;
+
 
             int[] rowOffsets = {-1, 0, 1, 0};
-            int[] colOffsets = {0, -1, 0 ,1};
+            int[] colOffsets = {0, -1, 0, 1};
 
             // explore the four directions in the next step
-            for (int i = 0; i < 4; i++) {
-                int nextRow = row + rowOffsets[i];
-                int nextCol = col + colOffsets[i];
+            for (int d=0; d<4; d++) {
+                int newRow = row + rowOffsets[d];
+                int newCol = col + colOffsets[d];
 
-                if (nextRow < 0 || nextRow >= ROWS || nextCol < 0 || nextCol >= COLS) continue;
+                if (0 > newRow || newRow >= rows || 0 > newCol || newCol >= cols) continue;
 
-                int eliminationsLeft = curr.k - grid[nextRow][nextCol];
-                StepState newState = new StepState(steps + 1, nextRow, nextCol, eliminationsLeft);
+                int nextElimination = elimination - grid[newRow][newCol];
+                State newState = new State(steps + 1, newRow, newCol, nextElimination, target);
 
-                // add the next move in the queue if it qualifies.
-                if (eliminationsLeft >= 0 && !seen.contains(newState)) {
+                if (nextElimination >= 0 && !seen.contains(newState)) {
                     seen.add(newState);
-                    queue.addLast(newState);
+                    queue.offer(newState);
                 }
             }
         }

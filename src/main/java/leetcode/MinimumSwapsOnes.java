@@ -1,33 +1,35 @@
 package leetcode;
 
-import java.util.Arrays;
-
 /*
+*
+* We are checking a window of size ones
+*
 * Time: O(n)
 * Space: O(1)
 * */
 
 public class MinimumSwapsOnes {
-    public int minSwaps(int[] data) {
-        int numOnes = Arrays.stream(data).sum();
+    public int minSwaps(int[] nums) {
+        int len = nums.length;
+        int ones = 0;
         int onesInWindow = 0;
-        int maxOnes = 0;
-        int left = 0;
+        int min = Integer.MAX_VALUE;
 
-        // Initialize window
-        for (int i=0; i< numOnes; i++) {
-            onesInWindow += data[i];
+        for (int n : nums) ones += n;
+
+        if (len == ones || ones == 0) return 0;
+
+        for (int k = 0; k < ones; k++) {
+            if (nums[k] == 0) onesInWindow++;
         }
 
-        maxOnes = onesInWindow;
-
-        for (int right=numOnes; right<data.length; right++) {
-            onesInWindow += data[right];
-            onesInWindow -= data[left];
-            left++;
-
-            maxOnes = Math.max(maxOnes, onesInWindow);
+        for (int i=1; i<len; i++) {
+            // circular check: j is the element at the end of the subarray
+            int j = (i + ones - 1) % len;
+            if (nums[j] == 0 && nums[i - 1] == 1) onesInWindow++;
+            else if (nums[j] == 1 && nums[i - 1] == 0) onesInWindow--;
+            min = Math.min(min, onesInWindow);
         }
-        return numOnes - maxOnes;
+        return min;
     }
 }
