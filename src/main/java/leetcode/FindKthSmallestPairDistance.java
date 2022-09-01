@@ -20,7 +20,7 @@ public class FindKthSmallestPairDistance {
             int right = 0;
 
             while (right < nums.length) {
-                // we want to make the difference smaller equal than m and since array is sorted, we can increase left
+                // since the distance is too large, we need to shrink the window by increasing l
                 if (nums[right] - nums[left] > m) left++;
                 else {
                     // add number of pairs

@@ -12,6 +12,13 @@ public class FlipStringMonotoneIncreasingTests {
     }
 
     @Test
+    public void min_flips_3() {
+        FlipStringMonotoneIncreasing mf = new FlipStringMonotoneIncreasing();
+
+        Assertions.assertThat(mf.minFlipsMonoIncr("00110")).isEqualTo(1);
+    }
+
+    @Test
     public void min_flips_2() {
         FlipStringMonotoneIncreasing mf = new FlipStringMonotoneIncreasing();
 

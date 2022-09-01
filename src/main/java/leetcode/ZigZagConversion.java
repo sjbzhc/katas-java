@@ -22,6 +22,7 @@ public class ZigZagConversion {
 
         for (char c : s.toCharArray()) {
             rows.get(curRow).append(c);
+            // first change of direction occurs in the first iteration, since index is 0
             if (curRow == 0 || curRow == numRows - 1) goingDown = !goingDown;
             curRow += goingDown ? 1 : -1;
         }
