@@ -19,7 +19,6 @@ public class InOrderTraversal {
             solution.add(current.val);
             current = current.right;
         }
-
         return solution;
     }
 }
