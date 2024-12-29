@@ -14,13 +14,12 @@ public class BestPairSightSeeing {
         dp[0] = values[0] + 0;
         int res = Integer.MIN_VALUE;
 
-        // corresponds to updating with values[i] + i. Prepare value for next iteration
+        // store in dp[i] the best possible value of (values[i] + i) from all indices up until i
         for (int i=1; i<dp.length; i++) {
             dp[i] = Math.max(dp[i-1], values[i] + i);
         }
 
-        // corresponds to updating with values[j] - j
-        // since we add it to dp[i-1], we make sure that (values[i] - i) represents the element after i-1
+        // complete the equation (values[j] - j)
         for (int i=1; i< dp.length; i++) {
             res = Math.max(res, dp[i-1] + (values[i] - i));
         }

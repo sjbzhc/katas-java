@@ -24,7 +24,7 @@ public class FileSystem {
         root = new File();
     }
 
-    public List < String > ls(String path) {
+    public List <String> ls(String path) {
         File t = root;
         // not root dir
         if (!path.equals("/")) {

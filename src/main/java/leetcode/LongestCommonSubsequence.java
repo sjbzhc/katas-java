@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 *
 * dp represents:
@@ -23,9 +26,6 @@ package leetcode;
 * Space: O(mn)
 * */
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LongestCommonSubsequence {
 
     Map<String, Integer> memo = new HashMap<>();
@@ -42,15 +42,12 @@ public class LongestCommonSubsequence {
         String k = i + "#" + j;
 
         if (memo.containsKey(k)) return memo.get(k);
-        // i is not part of the solution
-        int option1 = helper(i + 1, j);
-        int firstOccurrence = text2.indexOf(text1.charAt(i), j);
-        int option2 = 0;
-        if (firstOccurrence != -1) {
-            // i is part of the solution, we account for it with 1 +
-            option2 = 1 + helper(i + 1, firstOccurrence + 1);
+
+        if (text1.charAt(i) == text2.charAt(j)) {
+            memo.put(k, 1 + helper(i+1, j+1));
+        } else {
+            memo.put(k, Math.max(helper(i+1, j), helper(i, j+1)));
         }
-        memo.put(k, Math.max(option1, option2));
         return memo.get(k);
     }
     public int longestCommonSubsequence(String text1, String text2) {
@@ -84,6 +81,4 @@ public class LongestCommonSubsequence {
 
         return dp[text1.length()][text2.length()];
     }
-
-
 }

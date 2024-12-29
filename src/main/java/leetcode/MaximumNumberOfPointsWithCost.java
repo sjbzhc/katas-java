@@ -1,18 +1,23 @@
 package leetcode;
 
 /*
-*
+* Malus only if  cell picked in new row AND at different col
+* left represents the max number of points both from the left (left[c-1] with malus) or from above (dp[c] no malus)
+* right works in a similar way*
 * dp is the best decision so far. We go row by row.
+*
 *                       j
 * dp[i-1]:      |d0|d1|d2|
-* dp[i]  :      |  |  |  |
-* If we are at row i, and we want to know the value of cell (i, 2), we have:
+* dp[i]  :      |  |  | x|
+* If we are at row i, and we want to know the value of cell x = (i, 2), we have:
 *
 * dp[i][j]   = max(d0-2, d1-1, d2)
-* dp[i][j-1] = max(d0-1, d1) -> The only difference is that with have an additional -1 for each element
+* dp[i][j-1] = max(d0-1, d1)
+*   The only difference is that with have an additional -1 for each element
+*   d2 is not present since dp[i][j-1] represents the previous col (d1)
 *
 * This means that from left to right, we can build on the previous result, as
-* dp[i][j] = max(dp[i][j-1] - 1, d2), with d2 = dp[i-1][j]
+* dp[i][j] = max(dp[i][j-1] - 1, d2), with d2 = dp[i-1][j] (row above)
 * dp[i][j] = max(dp[i][j-1] - 1, dp[i-1][j])
 *
 * Since we go row by row and dp stores the results from the previous row, this translates to:
@@ -58,5 +63,16 @@ public class MaximumNumberOfPointsWithCost {
         }
 
         return res;
+    }
+
+    private void printArr(long[] arr, String name) {
+        System.out.println("Array : " + name);
+        StringBuilder sb = new StringBuilder();
+        for (long l : arr) {
+            sb.append(l);
+            sb.append(", ");
+        }
+        System.out.println(sb);
+        System.out.println("####");
     }
 }

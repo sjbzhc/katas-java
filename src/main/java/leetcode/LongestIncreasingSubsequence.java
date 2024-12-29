@@ -31,7 +31,7 @@ import java.util.Arrays;
 * */
 
 public class LongestIncreasingSubsequence {
-    public int lengthOfLIS(int[] nums) {
+    public int lengthOfLISDp(int[] nums) {
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
 
@@ -48,5 +48,37 @@ public class LongestIncreasingSubsequence {
             max = Math.max(max, n);
         }
         return max;
+    }
+
+    int n;
+    int[] nums;
+    int[] memo;
+    public int lengthOfLIS(int[] nums) {
+        n = nums.length;
+        this.nums = nums;
+        memo = new int[n];
+        int res = 0;
+
+        for (int i=0; i<n; i++) memo[i] = -1;
+
+        for (int i=0; i<n; i++) {
+            res = Math.max(res, helper(i));
+        }
+
+        return res;
+    }
+
+    private int helper(int i) {
+        if (memo[i] != -1) return memo[i];
+
+        int res = 1;
+
+        for (int j=i+1; j<n; j++) {
+            if (nums[i] < nums[j]) {
+                res = Math.max(res, 1 + helper(j));
+            }
+        }
+
+        return res;
     }
 }

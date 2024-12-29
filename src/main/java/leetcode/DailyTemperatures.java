@@ -18,7 +18,7 @@ public class DailyTemperatures {
         }
     }
     public int[] dailyTemperatures(int[] temperatures) {
-        Stack<Pair> stack = new Stack();
+        Stack<Pair> stack = new Stack<>();
         int n = temperatures.length;
         int[] res = new int[n];
 

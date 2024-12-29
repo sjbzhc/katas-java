@@ -23,6 +23,16 @@ import java.util.Map;
 /*
 * Time: O(mn)
 * Space: O(mn)
+*
+* insertion at w1: helper(i, j-1), meaning stay at w1, since we are adding a character, but move on with w2, as
+* with the insertion on w1, they are understood to match at that combination of indices. So now need to solve the
+* sub problem.
+*
+* deletion at w1: helper(i-1, j), meaning we moved the index of w1, since, after deleting, they are understood to match.
+* We are now concerned with solving the sub problem.
+*
+* swap at w2: helper(i-1, j-1) meaning we moved at both, since a swap means chars in both strings were touched. So now
+* focus on the sub problem
 * */
 public class EditDistance {
 

@@ -17,7 +17,7 @@ public class WordBreakTests {
     public void word_break_memo() {
         WordBreak wb = new WordBreak();
         List<String> dict = List.of("leet","code");
-        Assertions.assertThat(wb.wordBreakMemo("leetcode", dict)).isTrue();
+        Assertions.assertThat(wb.wordBreak("leetcode", dict)).isTrue();
     }
 
     @Test

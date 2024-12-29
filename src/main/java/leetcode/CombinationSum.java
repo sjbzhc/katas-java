@@ -30,10 +30,10 @@ public class CombinationSum {
         }
 
         current.add(candidates[i]);
-        // we are saying, we include the candidate[i] only once per decision node, so on the right side, we should not have it
-        // this is why after backtracking we move to i + 1, since we don't want to add candidates[i] at this level again
+        // having i with the same index means we repeat the same candidate number
         backtrack(i, current, total + candidates[i]);
         current.remove(current.size() - 1);
+        // skip the current element and explore the next one
         backtrack(i + 1, current, total);
     }
 }

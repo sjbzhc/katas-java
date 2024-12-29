@@ -38,23 +38,29 @@ public class WordBreak {
     * We cannot return directly true or false, but need to set it in the memo first, as those values might be used
     * in further calculations (except for base case).
     * */
-    public boolean wordBreakMemo(String s, List<String> wordDict) {
-        return wordBreakMemoization(s, new HashSet<>(wordDict), 0, new Boolean[s.length()]);
+    Set<String> set;
+    String s;
+    Map<Integer, Boolean> cache = new HashMap<>();
+    public boolean wordBreak(String s, List<String> wordDict) {
+        set = new HashSet<>(wordDict);
+        this.s = s;
+        return helper(0);
     }
 
-    private boolean wordBreakMemoization(String s, HashSet<String> wordDict, int start, Boolean[] memo) {
+    private boolean helper(int start) {
         if (start == s.length()) return true;
 
-        if (memo[start] != null) return memo[start];
+        if (cache.containsKey(start)) return cache.get(start);
 
         for (int end = start + 1; end <= s.length(); end++) {
-            if (wordDict.contains(s.substring(start, end)) && wordBreakMemoization(s, wordDict, end, memo)) {
-                memo[start] = true;
-                return memo[start];
+            if (set.contains(s.substring(start, end)) && helper(end)) {
+                cache.put(start, true);
+                return true;
             }
         }
-        memo[start] = false;
-        return memo[start];
+
+        cache.put(start, false);
+        return false;
     }
 
     /*

@@ -9,9 +9,10 @@ package leetcode;
 * Base case 2: we reached only the end of pattern -> false
 * We go through the chars in the strings one by one. If there is a match, we move forward in both text and pattern.
 * If we encounter a '.', we can treat that as a match.
-* When we encounter a star, we have to choices:
-*   1: to use the star, which can be done only if there is a match currently
-*   2: to ignore it (we move j by 2)
+* When we encounter a star, we have two cases:
+*   1: zero occurrences of the preceding character, so we move past * and preceding character with dfs(i, j+2)
+*   2: one or more occurrences of the preceding character, we can consume one character from the
+*      string and stay on the same pattern character, so we call dfs(i+1, j)
 *
 * */
 

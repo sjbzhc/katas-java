@@ -50,9 +50,11 @@ public class BuildBinaryExpressionTreeFromInfixExpression {
             ops.pop();
         } else {
             // create tree from operands, prioritizing */ vs +-
+            // First time the code runs, ops is empty, therefore we skip this
             while (!ops.isEmpty() && compare(ops.peek(), c)) {
                 nodes.push(buildNode(ops.pop(), nodes.pop(), nodes.pop()));
             }
+
             ops.push(c);
         }
     }

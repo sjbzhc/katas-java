@@ -90,11 +90,8 @@ public class LRUCache {
     }
 
     private void removeFromLinkedList(Node node) {
-        Node next = node.next;
-        Node prev = node.prev;
-
-        next.prev = prev;
-        prev.next = next;
+        node.next.prev = node.prev;
+        node.prev.next = node.next;
     }
 
     private void addToLinkedList(Node node) {

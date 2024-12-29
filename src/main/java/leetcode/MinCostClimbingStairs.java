@@ -1,24 +1,36 @@
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 * Time: O(n)
 * Space: O(n)
 * */
 
 public class MinCostClimbingStairs {
+    Map<Integer, Integer> cache = new HashMap<>();
+    int[] cost;
+    int n;
     public int minCostClimbingStairs(int[] cost) {
-        int[] costs = new int[cost.length + 1];
-        for (int i=0; i< cost.length; i++) {
-            costs[i] = cost[i];
-        }
+        this.cost = cost;
+        n = cost.length;
 
-        costs[costs.length - 1] = 0;
+        return Math.min(dfs(n-1), dfs(n-2));
+    }
 
-        for (int i=costs.length - 3; i>=0; i--) {
-            costs[i] += Math.min(costs[i + 1], costs[i + 2]);
-        }
+    public int dfs(int i) {
 
-        return Math.min(costs[0], costs[1]);
+        if (i < 0) return 0;
+
+        if (cache.containsKey(i)) return cache.get(i);
+
+        if (i == 0 || i == 1) return cost[i];
+
+        int v = cost[i] + Math.min(dfs(i-1), dfs(i-2));
+
+        cache.put(i, v);
+        return v;
     }
 
     public int minCostClimbingStairsBottomUp(int[] cost) {

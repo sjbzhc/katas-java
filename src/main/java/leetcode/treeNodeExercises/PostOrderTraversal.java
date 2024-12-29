@@ -1,23 +1,23 @@
 package leetcode.treeNodeExercises;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class PostOrderTraversal {
     public List<Integer> postOrderTraversal(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
-        LinkedList<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
+
+        if (root == null) return list;
 
         stack.push(root);
 
         while (!stack.isEmpty()) {
             TreeNode current = stack.pop();
-            list.addFirst(current.val);
+            list.add(current.val);
             if (current.left != null) stack.push(current.left);
             if (current.right != null) stack.push(current.right);
         }
+        Collections.reverse(list);
         return list;
     }
 }

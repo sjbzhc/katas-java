@@ -3,9 +3,14 @@ package leetcode;
 import java.util.PriorityQueue;
 
 /*
-* Time: O(n log n)
-* Space: O(n)
-* */
+ * Time: O(n log n)
+ * Space: O(n)
+ * When simply adding, we add through the minPq and it does not do anything.
+ * The minPq is useful when the get method is used. It ensures that for any record
+ * we get back in circulation, it will be returned after any other records with lower
+ * score have been processed.
+ * */
+
 
 public class SORTracker {
 

@@ -1,12 +1,12 @@
 package leetcode;
 
-/*
-* Time: O(n)
-* Space: O(1)
-* */
-
 import java.util.HashMap;
 import java.util.Map;
+
+/*
+ * Time: O(n)
+ * Space: O(1)
+ * */
 
 public class HouseRobberII {
 

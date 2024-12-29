@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
-* Time: O(2^n)
+* Time: O(2^n)WS
 * Space: O(2^n)
 * */
 

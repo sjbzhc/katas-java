@@ -7,6 +7,11 @@ import java.util.List;
 /*
 * Time: O(n2)
 * Space: O(n)
+*
+* We use sliding window. End and start represent indices of the list of angles.
+*   End is increased until the difference between angles[end] - angles[start] is smaller than angle.
+*   Start is increased as soon as we cannot increase end further. For the new start index, the max end is again calculated.
+* Handle circular using modulo.
 * */
 public class VisiblePoints {
     public int visiblePoints(List<List<Integer>> points, int angle, List<Integer> location) {

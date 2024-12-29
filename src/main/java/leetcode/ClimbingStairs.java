@@ -9,23 +9,23 @@ import java.util.Map;
 * Space: O(n)
 * */
 public class ClimbingStairs {
-    Map<Integer, Integer> map = new HashMap<>();
+    int n;
+    Map<Integer, Integer> memo = new HashMap<>();
     public int climbStairs(int n) {
-        return helper(0, n);
+        this.n = n;
+        return helper(0);
     }
 
-    public int helper(int current, int n) {
-        if (current > n) return 0;
+    private int helper(int i) {
+        if (i > n) return 0;
+        if (i == n) return 1;
 
-        if (current == n) return 1;
+        if (memo.containsKey(i)) return memo.get(i);
 
-        if (map.get(current) != null) {
-            return map.get(current);
-        }
+        int v = helper(i+1) + helper(i+2);
 
-        map.put(current, helper(current + 1, n) + helper(current + 2, n));
-
-        return map.get(current);
+        memo.put(i, v);
+        return v;
     }
 
     public int climbStairsDP(int n) {

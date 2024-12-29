@@ -1,6 +1,7 @@
 package leetcode;
 
 /*
+* Assumption: the list to the right of the pivot is in descending order
 *
 * The permutation is the next one in increasing lexicographic order. Therefore, when considering the next one, we need
 * to look for the section that is decreasing, as that section cannot change order anymore.
@@ -35,7 +36,7 @@ public class NextPermutation {
         while (i >= 0 && nums[i+1] <= nums[i]) i--;
 
         if (i >= 0) {
-            // find the next bigger element than nums[i]
+            // find the next bigger element than nums[i]. Since descending, go as far left as possible
             int j = nums.length - 1;
             while (nums[j] <= nums[i]) j--;
             swap(nums, i, j);

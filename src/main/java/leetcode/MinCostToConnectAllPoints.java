@@ -9,6 +9,9 @@ import java.util.PriorityQueue;
 /*
 * Time: O(n2 log n)
 * Space: O(n2)
+*
+* Kruskal's Algorithm to fins the Minimum Spanning Tree in an undirected graph. It selects the edges with the minimum
+* weight (sort increasing) and ensures no cycles are formed (union find).
 * */
 public class MinCostToConnectAllPoints {
 
@@ -73,6 +76,7 @@ public class MinCostToConnectAllPoints {
             }
         }
 
+        // Sort ascendingly
         Collections.sort(edges, (a, b) -> Integer.compare(a.weight, b.weight));
 
         UnionFind uf = new UnionFind(n);
@@ -98,6 +102,10 @@ public class MinCostToConnectAllPoints {
         }
     }
 
+    /*
+    * Prim's algorithm. Greedy, on a random node, add the smallest edge (PriorityQueue) and continue until the MST is
+    * created (edgesUsed < n).
+    * */
     public int minCostConnectPointsMST(int[][] points) {
         int n = points.length;
         PriorityQueue<Pair> heap = new PriorityQueue<>((a, b) -> (a.weight - b.weight));;
