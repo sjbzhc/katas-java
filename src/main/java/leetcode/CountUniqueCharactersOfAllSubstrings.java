@@ -18,12 +18,34 @@ public class CountUniqueCharactersOfAllSubstrings {
             // we subtract prevContribution in case the char is repeated to avoid double count
             contribution[curr] = i + 1 - prevContribution[curr];
 
-            for (int j = 0; j < 26; j++) {
-                res += contribution[j];
-            }
+            // Sum the contributions of all unique characters for the current index
+            for (int cont: contribution) res += cont;
 
             prevContribution[curr] = i + 1;
         }
         return res;
     }
 }
+
+/*
+ * Example
+ * ABA
+ * i=0, substring=A
+ * curr=0
+ * contribution[0] = 1
+ * res += (1) => 1
+ * prevContribution[0] = 1;
+ *
+ * i=1, substring=AB
+ * curr=1
+ * contribution[1] = 1 + 1 - (prevContribution[1] = 0) = 2
+ * res += (1 from A) + (2 from AB) += 3 => 4 (res was 1 before)
+ * prevContribution[0] = 2;
+ *
+ * i=2, substring=ABA
+ * curr=0
+ * contribution[1] = 2 + 1 - (prevContribution[0] = 1) = 2
+ * res += (2 from A) + (2 from AB) += 4 => 8 (res was 4 before)
+ * prevContribution[0] = 3;
+ *
+ * */

@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 * Time: O(n)
 * Space: O(n)
@@ -14,14 +17,30 @@ package leetcode;
 * */
 public class MinimumPathSum {
 
-    public int minPathSumBruteForce(int[][] grid) {
-        return calculate(grid, 0, 0);
+    /*
+    * Without memo, time is O(2^(m+n))
+    * With memo:
+    * Time: O(mn)
+    * Space: O(mn)
+    * */
+
+    int[][] grid;
+    Map<String, Integer> memo = new HashMap<>();
+    public int minPathSumRec(int[][] grid) {
+        this.grid = grid;
+        return helper(0, 0);
     }
 
-    public int calculate(int[][] grid, int i, int j) {
+    private int helper(int i, int j) {
         if (i == grid.length || j == grid[0].length) return Integer.MAX_VALUE;
-        if (i == grid.length - 1 && j == grid[0].length - 1) return grid[i][j];
-        return grid[i][j] + Math.min(calculate(grid, i + 1, j), calculate(grid, i, j + 1));
+        if (i == grid.length -1 && j == grid[0].length - 1) return grid[i][j];
+
+        String k = i + "#" + j;
+        if (memo.containsKey(k)) return memo.get(k);
+
+        int v =  grid[i][j] + Math.min(helper(i+1, j), helper(i, j+1));
+        memo.put(k, v);
+        return v;
     }
 
     public int minPathSum(int[][] grid) {

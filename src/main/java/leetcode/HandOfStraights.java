@@ -20,6 +20,8 @@ public class HandOfStraights {
         }
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
+        // By having the card values on the pq, we always get the smallest one, which is necessary
+        // to build consecutive suits
         for (int n : count.keySet()) pq.offer(n);
 
         while (!pq.isEmpty()) {
@@ -31,9 +33,11 @@ public class HandOfStraights {
 
                  count.put(nextCard, count.get(nextCard) - 1);
 
-                 // if the count is 0 we need to pop it from pq
-                // If the value we are about to pop is not the top of the heap return false, as we have a smaller number
-                // and we should be building the heap with increasing values from the pq
+                 /*
+                 * If the count is 0 we need to pop it from pq
+                 * If the nextCard is not the top of pq, that means nextCard is not available, and the sequence
+                 * cannot be built
+                 * */
                 if (count.get(nextCard) == 0) {
                     if (nextCard != pq.peek()) return false;
                     pq.poll();

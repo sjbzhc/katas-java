@@ -1,16 +1,40 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-/*
-* Time: O(n)
-* Space: O(1)
-*
-* */
+import java.util.Map;
 
 public class PartitionLabels {
-    public List<Integer> partitionLabels(String S) {
+
+    /*
+     * Time: O(n)
+     * Space: O(1)
+     *
+     * */
+    public List<Integer> partitionLabels(String s) {
+        Map<Character, Integer> lastOccurrence = new HashMap<>();
+        List<Integer> res = new ArrayList<>();
+        for (int i=0; i<s.length(); i++) lastOccurrence.put(s.charAt(i), i);
+
+        // Start and end of current partition
+        int start = 0;
+        int end = 0;
+
+        for (int i=0; i<s.length(); i++) {
+            end = Math.max(end, lastOccurrence.get(s.charAt(i)));
+
+            // When i reaches end, we can finalize this partition
+            if (i == end) {
+                res.add(i - start + 1);
+                // start at next partition
+                start = i + 1;
+            }
+        }
+
+        return res;
+    }
+    public List<Integer> partitionLabels2(String S) {
         int[] last = new int[26];
         for (int i = 0; i < S.length(); ++i) {
             last[S.charAt(i) - 'a'] = i;

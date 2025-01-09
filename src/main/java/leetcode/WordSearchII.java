@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 /*
-* Time: O(mn * 4^mn)
+* Time: O(mnl), with l average length of words
 * Space: O(mn * 4^mn)
+*
+* Backtracking helps explore all possible paths on the board.
 * */
 public class WordSearchII {
 

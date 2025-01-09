@@ -5,13 +5,13 @@ import java.util.*;
 public class Twitter {
 
     class NewsFeedTweet {
-        int count;
+        int timestamp;
         int tweetId;
         int followeeId;
         int index;
 
         public NewsFeedTweet(int count, int tweetId, int followeeId, int index) {
-            this.count = count;
+            this.timestamp = count;
             this.tweetId = tweetId;
             this.followeeId = followeeId;
             this.index = index;
@@ -19,44 +19,44 @@ public class Twitter {
     }
 
     class Tweet {
-        int count;
+        int timestamp;
         int tweetId;
 
         public Tweet(int count, int tweetId) {
-            this.count = count;
+            this.timestamp = count;
             this.tweetId = tweetId;
         }
     }
 
-    int count;
-    Map<Integer, List<Tweet>> userToTweets;
-    Map<Integer, Set<Integer>> userFollows;
+    int timestamp;
+    Map<Integer, List<Tweet>> userIdToTweets;
+    Map<Integer, Set<Integer>> userIdFollows;
     public Twitter() {
-        count = 0;
-        userToTweets = new HashMap<>();
-        userFollows = new HashMap<>();
+        timestamp = 0;
+        userIdToTweets = new HashMap<>();
+        userIdFollows = new HashMap<>();
     }
 
     public void postTweet(int userId, int tweetId) {
-        userToTweets.putIfAbsent(userId, new ArrayList<>());
-        userToTweets.get(userId).add(new Tweet(count, tweetId));
-        count++;
+        userIdToTweets.putIfAbsent(userId, new ArrayList<>());
+        userIdToTweets.get(userId).add(new Tweet(timestamp, tweetId));
+        timestamp++;
     }
 
     public List<Integer> getNewsFeed(int userId) {
         List<Integer> res = new ArrayList<>();
-        PriorityQueue<NewsFeedTweet> pq = new PriorityQueue<>((a, b) -> b.count - a.count);
+        PriorityQueue<NewsFeedTweet> pq = new PriorityQueue<>((a, b) -> b.timestamp - a.timestamp);
 
-        userFollows.putIfAbsent(userId, new HashSet<>());
-        userFollows.get(userId).add(userId);
+        userIdFollows.putIfAbsent(userId, new HashSet<>());
+        userIdFollows.get(userId).add(userId);
 
         // for all the followers, get their last tweet and put it in the pq. The NewsFeedTweet contains
         // all information to keep on pulling tweets if needed
-        for (int followeeId : userFollows.get(userId)) {
-            if (userToTweets.containsKey(followeeId)) {
-                int index = userToTweets.get(followeeId).size() - 1;
-                Tweet tweet = userToTweets.get(followeeId).get(index);
-                pq.offer(new NewsFeedTweet(tweet.count, tweet.tweetId, followeeId, index - 1));
+        for (int followeeId : userIdFollows.get(userId)) {
+            if (userIdToTweets.containsKey(followeeId)) {
+                int index = userIdToTweets.get(followeeId).size() - 1;
+                Tweet tweet = userIdToTweets.get(followeeId).get(index);
+                pq.offer(new NewsFeedTweet(tweet.timestamp, tweet.tweetId, followeeId, index - 1));
             }
         }
 
@@ -64,8 +64,8 @@ public class Twitter {
             NewsFeedTweet newsFeedTweet = pq.poll();
             res.add(newsFeedTweet.tweetId);
             if (newsFeedTweet.index >= 0) {
-                Tweet tweet = userToTweets.get(newsFeedTweet.followeeId).get(newsFeedTweet.index);
-                pq.offer(new NewsFeedTweet(tweet.count, tweet.tweetId, newsFeedTweet.followeeId, newsFeedTweet.index - 1));
+                Tweet tweet = userIdToTweets.get(newsFeedTweet.followeeId).get(newsFeedTweet.index);
+                pq.offer(new NewsFeedTweet(tweet.timestamp, tweet.tweetId, newsFeedTweet.followeeId, newsFeedTweet.index - 1));
             }
         }
 
@@ -73,14 +73,14 @@ public class Twitter {
     }
 
     public void follow(int followerId, int followeeId) {
-        userFollows.putIfAbsent(followerId, new HashSet<>());
-        userFollows.get(followerId).add(followeeId);
+        userIdFollows.putIfAbsent(followerId, new HashSet<>());
+        userIdFollows.get(followerId).add(followeeId);
     }
 
     public void unfollow(int followerId, int followeeId) {
-        if (userFollows.containsKey(followerId)) {
-            if (userFollows.get(followerId).contains(followeeId)) {
-                userFollows.get(followerId).remove(followeeId);
+        if (userIdFollows.containsKey(followerId)) {
+            if (userIdFollows.get(followerId).contains(followeeId)) {
+                userIdFollows.get(followerId).remove(followeeId);
             }
         }
     }

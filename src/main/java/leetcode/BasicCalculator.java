@@ -19,7 +19,7 @@ public class BasicCalculator {
 
         Stack<Integer> stack = new Stack<>();
         int currentNum = 0;
-        int result = 0;
+        int currentRes = 0;
         int sign = 1;
 
         for (char c : s.toCharArray()) {
@@ -27,30 +27,32 @@ public class BasicCalculator {
                 // Could be more than one digit
                 currentNum = 10 * currentNum + (c - '0');
             } else if (c == '+') {
-                result += sign * currentNum;
+                currentRes += sign * currentNum;
                 sign = 1;
                 currentNum = 0;
             } else if (c == '-') {
-                result += sign * currentNum;
+                currentRes += sign * currentNum;
                 sign = -1;
                 currentNum = 0;
             } else if (c == '(') {
                 // We push the result first, then sign
-                stack.push(result);
+                stack.push(currentRes);
+                currentRes = 0;
                 stack.push(sign);
                 sign = 1;
-                result = 0;
+            // In total, we do: (operand on stack) + (sign on stack * (result from parenthesis))
             } else if (c == ')') {
-                result += sign * currentNum;
-                // sign on top of stack, stack.pop() is the sign before the parenthesis
-                result *= stack.pop();
-                // Then add to the next operand on the top.
-                // as stack.pop() is the result calculated before this parenthesis
-                // (operand on stack) + (sign on stack * (result from parenthesis))
-                result += stack.pop();
+                // currentRes will hold the value of the operation within the parenthesis
+                currentRes += sign * currentNum;
+
+                // Multiply with the sign. The sign might not have changed (but is +1 by default).
+                currentRes *= stack.pop();
+
+                // Add result previous to the parenthesis
+                currentRes += stack.pop();
                 currentNum = 0;
             }
         }
-        return result + (sign * currentNum);
+        return currentRes + (sign * currentNum);
     }
 }

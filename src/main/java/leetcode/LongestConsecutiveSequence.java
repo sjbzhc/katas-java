@@ -20,6 +20,7 @@ public class LongestConsecutiveSequence {
 
         for (int num : nums) {
             int len = 0;
+            // The current number has no predecessor, so it starts its own sequence
             if (!set.contains(num - 1)) {
                 while (set.contains(num + len)) len++;
             }

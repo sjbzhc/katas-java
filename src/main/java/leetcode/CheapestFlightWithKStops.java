@@ -3,7 +3,7 @@ package leetcode;
 import java.util.Arrays;
 
 /*
-* Time: O(K E)
+* Time: O(K*E)
 * Space: O(V)
 * Bellman-Ford
 * */
@@ -17,7 +17,10 @@ public class CheapestFlightWithKStops {
         prices[src] = 0;
         temp[src] = 0;
 
+        // k represents the stops
         while (k + 1 > 0) {
+            // for each stop, we consider all flights. Valid flights are flights where the price[source] != MAX_VALUE
+            // as that means that airport is reachable at this point.
             for (int[] flight : flights) {
                 int source = flight[0];
                 int destination = flight[1];

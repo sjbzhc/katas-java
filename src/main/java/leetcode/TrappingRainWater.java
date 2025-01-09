@@ -58,6 +58,11 @@ public class TrappingRainWater {
     /*
     * Time: O(n)
     * Space: O(n)
+    *
+    * leftMax represents the highest elevation to the left of i. rightMax represents the highest elevation to the right
+    * of i.
+    * At each index, the amount of water to trap is constrained by the min of rightMax and leftMax, minus the current
+    * height.
     * */
 
     public int trapDynamicProgramming(int[] heights) {

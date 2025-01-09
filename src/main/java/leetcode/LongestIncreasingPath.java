@@ -3,6 +3,8 @@ package leetcode;
 /*
 * Time: O(mn)
 * Space: O(mn)
+*
+* cache stores the longest path starting from r, c
 * */
 
 public class LongestIncreasingPath {

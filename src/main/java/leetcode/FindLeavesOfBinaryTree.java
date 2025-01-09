@@ -8,15 +8,16 @@ import java.util.List;
 /*
 * Time: O(n)
 * Space: O(n)
+*
+* We are counting the depth from the bottom. So first we will locate all leafs
 * */
 
 public class FindLeavesOfBinaryTree {
-    private List<List<Integer>> solution;
+    private List<List<Integer>> res = new ArrayList<>();
 
     public List<List<Integer>> findLeaves(TreeNode root) {
-        solution = new ArrayList<>();
         getHeight(root);
-        return solution;
+        return res;
     }
 
     private int getHeight(TreeNode root) {
@@ -27,9 +28,10 @@ public class FindLeavesOfBinaryTree {
 
         int currHeight = Math.max(leftHeight, rightHeight) + 1;
 
-        if (solution.size() == currHeight) solution.add(new ArrayList<>());
+        // At the beginning, res.size is 0. currHeight is also 0 (null leads to -1, which is compensated with +1 above)
+        if (res.size() == currHeight) res.add(new ArrayList<>());
 
-        solution.get(currHeight).add(root.val);
+        res.get(currHeight).add(root.val);
 
         return currHeight;
     }

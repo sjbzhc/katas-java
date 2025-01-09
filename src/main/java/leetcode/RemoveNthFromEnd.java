@@ -22,6 +22,7 @@ public class RemoveNthFromEnd {
         }
 
         left.next = left.next.next;
+        // we return dummy.next, as the head might be removed
         return dummy.next;
     }
 }

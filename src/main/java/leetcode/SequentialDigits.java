@@ -17,6 +17,8 @@ public class SequentialDigits {
         int highLen = String.valueOf(high).length();
 
         for (int len=lowLen; len < highLen + 1; len++) {
+            // n - len, since we need a valid substring starting from start, with length len, so the last possible string
+            // is at n - len, as if we add len to start = n - len, we end the substring ending at n.
             for (int start=0; start < n - len; start++) {
                 int num = Integer.parseInt(sample.substring(start, start + len));
                 if (num >= low && num <= high) nums.add(num);

@@ -33,15 +33,19 @@ public class NextPermutation {
         int i = nums.length - 2;
 
         // we are looking from an increase left to right, e.g. 1, 5
+        // This pivot marks the longest subarray on the left that is descending
         while (i >= 0 && nums[i+1] <= nums[i]) i--;
 
         if (i >= 0) {
-            // find the next bigger element than nums[i]. Since descending, go as far left as possible
+            // find the next bigger element than nums[i]. This is the smallest possible number
+            // to do the swap
             int j = nums.length - 1;
             while (nums[j] <= nums[i]) j--;
             swap(nums, i, j);
         }
 
+        // Since the subarray to the right of pivot is descending [5,4,1,0], we need
+        // to reverse to have the smallest possible increase => [0,1,4,5]
         reverse(nums, i + 1);
     }
 
